@@ -1,0 +1,570 @@
+[
+  {
+    "name": "BiLSTM-2Layer",
+    "family": "recurrent",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.14350619304180146,
+    "best_val_acc": 0.954,
+    "test_loss": 0.13370618935823442,
+    "test_acc": 0.9608,
+    "parameter_count": 559626,
+    "elapsed_seconds": 32.78663608315401,
+    "spec": {
+      "name": "BiLSTM-2Layer",
+      "family": "recurrent",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "bidirectional": true,
+      "pooling": "last",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.6583195885022481,
+        "train_acc": 0.4359166666666667,
+        "val_loss": 0.7045105128288269,
+        "val_acc": 0.7805
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.46238284023602805,
+        "train_acc": 0.8565833333333334,
+        "val_loss": 0.30442999935150145,
+        "val_acc": 0.90975
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.25542924769719444,
+        "train_acc": 0.9223333333333333,
+        "val_loss": 0.2321253263950348,
+        "val_acc": 0.931
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.17905826648076376,
+        "train_acc": 0.945,
+        "val_loss": 0.17471800112724303,
+        "val_acc": 0.94675
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.13684696674346924,
+        "train_acc": 0.9579166666666666,
+        "val_loss": 0.14361250841617584,
+        "val_acc": 0.95325
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.10779099742571513,
+        "train_acc": 0.9680833333333333,
+        "val_loss": 0.14350619304180146,
+        "val_acc": 0.954
+      }
+    ]
+  },
+  {
+    "name": "BiLSTM-2Layer-Attn",
+    "family": "recurrent",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.11869525468349457,
+    "best_val_acc": 0.9615,
+    "test_loss": 0.10564639694988727,
+    "test_acc": 0.9678,
+    "parameter_count": 559883,
+    "elapsed_seconds": 34.936730541987345,
+    "spec": {
+      "name": "BiLSTM-2Layer-Attn",
+      "family": "recurrent",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "bidirectional": true,
+      "pooling": "attention",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.7105138824780781,
+        "train_acc": 0.3998333333333333,
+        "val_loss": 0.9529467544555664,
+        "val_acc": 0.6815
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.5892852250734965,
+        "train_acc": 0.8096666666666666,
+        "val_loss": 0.4562995934486389,
+        "val_acc": 0.85325
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.28085379366079966,
+        "train_acc": 0.9110833333333334,
+        "val_loss": 0.22153773117065428,
+        "val_acc": 0.929
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.17337928716341655,
+        "train_acc": 0.9479166666666666,
+        "val_loss": 0.17019337427616119,
+        "val_acc": 0.944
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.1343286408384641,
+        "train_acc": 0.9616666666666667,
+        "val_loss": 0.1426413905620575,
+        "val_acc": 0.95575
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.11580979363123575,
+        "train_acc": 0.9661666666666666,
+        "val_loss": 0.11869525468349457,
+        "val_acc": 0.9615
+      }
+    ]
+  },
+  {
+    "name": "BiGRU-2Layer",
+    "family": "recurrent",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.10732584273815154,
+    "best_val_acc": 0.96575,
+    "test_loss": 0.09920543516874314,
+    "test_acc": 0.9696,
+    "parameter_count": 420362,
+    "elapsed_seconds": 31.281506082974374,
+    "spec": {
+      "name": "BiGRU-2Layer",
+      "family": "recurrent",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "bidirectional": true,
+      "pooling": "last",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.699040815671285,
+        "train_acc": 0.4071666666666667,
+        "val_loss": 0.8477946910858154,
+        "val_acc": 0.73225
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.48569234132766725,
+        "train_acc": 0.8514166666666667,
+        "val_loss": 0.2716100676059723,
+        "val_acc": 0.9205
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.20811314141750337,
+        "train_acc": 0.9381666666666667,
+        "val_loss": 0.18444684720039367,
+        "val_acc": 0.94625
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.14129277247190475,
+        "train_acc": 0.9580833333333333,
+        "val_loss": 0.14348323702812193,
+        "val_acc": 0.95725
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.0984232008655866,
+        "train_acc": 0.9701666666666666,
+        "val_loss": 0.10909365499019623,
+        "val_acc": 0.96525
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.07709770182768504,
+        "train_acc": 0.9781666666666666,
+        "val_loss": 0.10732584273815154,
+        "val_acc": 0.96575
+      }
+    ]
+  },
+  {
+    "name": "BiGRU-2Layer-Attn",
+    "family": "recurrent",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.11255833125114441,
+    "best_val_acc": 0.9655,
+    "test_loss": 0.09338909252882004,
+    "test_acc": 0.9702,
+    "parameter_count": 420619,
+    "elapsed_seconds": 32.9633097499609,
+    "spec": {
+      "name": "BiGRU-2Layer-Attn",
+      "family": "recurrent",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "bidirectional": true,
+      "pooling": "attention",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.6896097922325135,
+        "train_acc": 0.4196666666666667,
+        "val_loss": 0.915583438873291,
+        "val_acc": 0.7165
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.5394754592577616,
+        "train_acc": 0.8391666666666666,
+        "val_loss": 0.292299245595932,
+        "val_acc": 0.9095
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.22157190303007762,
+        "train_acc": 0.9335,
+        "val_loss": 0.1966367406845093,
+        "val_acc": 0.9405
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.14869399762153626,
+        "train_acc": 0.9546666666666667,
+        "val_loss": 0.13238297128677368,
+        "val_acc": 0.95775
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.10164196411768596,
+        "train_acc": 0.97075,
+        "val_loss": 0.11255833125114441,
+        "val_acc": 0.9655
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.081540713985761,
+        "train_acc": 0.976,
+        "val_loss": 0.11264154016971588,
+        "val_acc": 0.965
+      }
+    ]
+  },
+  {
+    "name": "BiLSTM-Columns",
+    "family": "recurrent",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.17941435670852662,
+    "best_val_acc": 0.94775,
+    "test_loss": 0.14949066878557205,
+    "test_acc": 0.9538,
+    "parameter_count": 164362,
+    "elapsed_seconds": 18.7099272091873,
+    "spec": {
+      "name": "BiLSTM-Columns",
+      "family": "recurrent",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": 1,
+      "bidirectional": true,
+      "pooling": "last",
+      "transpose_input": true,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.8773623251914977,
+        "train_acc": 0.33541666666666664,
+        "val_loss": 1.01495530128479,
+        "val_acc": 0.7045
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.601950669447581,
+        "train_acc": 0.8205833333333333,
+        "val_loss": 0.39448445224761963,
+        "val_acc": 0.88475
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.2926296373605728,
+        "train_acc": 0.912,
+        "val_loss": 0.2606089262962341,
+        "val_acc": 0.9245
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.20066515644391378,
+        "train_acc": 0.9420833333333334,
+        "val_loss": 0.20966422748565675,
+        "val_acc": 0.93225
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.16375958494345347,
+        "train_acc": 0.9500833333333333,
+        "val_loss": 0.18194613671302795,
+        "val_acc": 0.9435
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.12874260745445887,
+        "train_acc": 0.9604166666666667,
+        "val_loss": 0.17941435670852662,
+        "val_acc": 0.94775
+      }
+    ]
+  },
+  {
+    "name": "Transformer-CLS",
+    "family": "transformer",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.16058172821998595,
+    "best_val_acc": 0.952,
+    "test_loss": 0.13792552865743637,
+    "test_acc": 0.959,
+    "parameter_count": 274058,
+    "elapsed_seconds": 41.07179099996574,
+    "spec": {
+      "name": "Transformer-CLS",
+      "family": "transformer",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": 2,
+      "bidirectional": null,
+      "pooling": "cls",
+      "transpose_input": false,
+      "d_model": 128,
+      "num_heads": 8,
+      "ff_dim": 256,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.4913109644254048,
+        "train_acc": 0.48741666666666666,
+        "val_loss": 0.8180254449844361,
+        "val_acc": 0.72825
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.6363804074923197,
+        "train_acc": 0.7998333333333333,
+        "val_loss": 0.38851849460601806,
+        "val_acc": 0.8865
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.3497687224547068,
+        "train_acc": 0.8931666666666667,
+        "val_loss": 0.2593958191871643,
+        "val_acc": 0.92375
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.23895411276817322,
+        "train_acc": 0.9265833333333333,
+        "val_loss": 0.2399383225440979,
+        "val_acc": 0.9275
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.17180984795093537,
+        "train_acc": 0.9473333333333334,
+        "val_loss": 0.16058172821998595,
+        "val_acc": 0.952
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.13346530822912853,
+        "train_acc": 0.9581666666666667,
+        "val_loss": 0.20790271353721618,
+        "val_acc": 0.93725
+      }
+    ]
+  },
+  {
+    "name": "Transformer-Deep",
+    "family": "transformer",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.19691810846328736,
+    "best_val_acc": 0.94475,
+    "test_loss": 0.17137097516059877,
+    "test_acc": 0.9518,
+    "parameter_count": 538762,
+    "elapsed_seconds": 79.86352054099552,
+    "spec": {
+      "name": "Transformer-Deep",
+      "family": "transformer",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": 4,
+      "bidirectional": null,
+      "pooling": "mean",
+      "transpose_input": false,
+      "d_model": 128,
+      "num_heads": 8,
+      "ff_dim": 256,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 1.5492548503875732,
+        "train_acc": 0.469,
+        "val_loss": 0.9399418449401855,
+        "val_acc": 0.67825
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.7008370904127756,
+        "train_acc": 0.7766666666666666,
+        "val_loss": 0.4646341543197632,
+        "val_acc": 0.85675
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.3881030426820119,
+        "train_acc": 0.8800833333333333,
+        "val_loss": 0.3243002653121948,
+        "val_acc": 0.899
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.23549345719814302,
+        "train_acc": 0.9274166666666667,
+        "val_loss": 0.20428821277618409,
+        "val_acc": 0.93675
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.17425023210048676,
+        "train_acc": 0.9459166666666666,
+        "val_loss": 0.18868283581733702,
+        "val_acc": 0.93975
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.13457603593667347,
+        "train_acc": 0.95925,
+        "val_loss": 0.19691810846328736,
+        "val_acc": 0.94475
+      }
+    ]
+  },
+  {
+    "name": "TCN",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.06651128029823303,
+    "best_val_acc": 0.98,
+    "test_loss": 0.0567379431668669,
+    "test_acc": 0.9809,
+    "parameter_count": 203082,
+    "elapsed_seconds": 83.85540495812893,
+    "spec": {
+      "name": "TCN",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.7761428857644399,
+        "train_acc": 0.7813333333333333,
+        "val_loss": 0.2502799725532532,
+        "val_acc": 0.92575
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.14792665700117746,
+        "train_acc": 0.9618333333333333,
+        "val_loss": 0.1297412883043289,
+        "val_acc": 0.96125
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.09306306689977646,
+        "train_acc": 0.9748333333333333,
+        "val_loss": 0.09449934613704682,
+        "val_acc": 0.97475
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.06378244513273239,
+        "train_acc": 0.9814166666666667,
+        "val_loss": 0.08286574923992157,
+        "val_acc": 0.97575
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.05134840326507886,
+        "train_acc": 0.986,
+        "val_loss": 0.06651128029823303,
+        "val_acc": 0.98
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.03935615679124991,
+        "train_acc": 0.99,
+        "val_loss": 0.06629909539222717,
+        "val_acc": 0.979
+      }
+    ]
+  }
+]
