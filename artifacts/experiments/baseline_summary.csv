@@ -1,0 +1,8 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+RNN,baseline_rnn,6,6,0.704311,0.766000,0.661825,0.774200,21514,4.25
+BiRNN,baseline_birnn,6,6,0.332365,0.893250,0.316668,0.901500,43018,6.77
+LSTM,baseline_lstm,6,6,0.242710,0.924000,0.234588,0.925200,82186,9.97
+BiLSTM,baseline_bilstm,6,6,0.177418,0.946000,0.168619,0.948400,164362,17.65
+GRU,baseline_gru,6,6,0.247264,0.929250,0.219298,0.932900,61962,9.31
+BiGRU,baseline_bigru,6,6,0.211726,0.935750,0.186614,0.943800,123914,15.24
+TransformerMean,baseline_transformer,6,6,0.152463,0.953750,0.132475,0.960900,273802,38.98

@@ -1,0 +1,9 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+BiLSTM-2Layer,recurrent,6,6,0.143506,0.954000,0.133706,0.960800,559626,32.79
+BiLSTM-2Layer-Attn,recurrent,6,6,0.118695,0.961500,0.105646,0.967800,559883,34.94
+BiGRU-2Layer,recurrent,6,6,0.107326,0.965750,0.099205,0.969600,420362,31.28
+BiGRU-2Layer-Attn,recurrent,6,5,0.112558,0.965500,0.093389,0.970200,420619,32.96
+BiLSTM-Columns,recurrent,6,6,0.179414,0.947750,0.149491,0.953800,164362,18.71
+Transformer-CLS,transformer,6,5,0.160582,0.952000,0.137926,0.959000,274058,41.07
+Transformer-Deep,transformer,6,6,0.196918,0.944750,0.171371,0.951800,538762,79.86
+TCN,tcn,6,5,0.066511,0.980000,0.056738,0.980900,203082,83.86

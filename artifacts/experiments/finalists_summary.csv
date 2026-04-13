@@ -1,0 +1,6 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+TransformerMean,baseline_transformer,10,9,0.072224,0.979650,0.068205,0.979400,273802,240.92
+BiGRU-2Layer,recurrent,10,10,0.041102,0.987900,0.042981,0.987500,420362,202.55
+BiGRU-2Layer-Attn,recurrent,10,10,0.037704,0.988800,0.036018,0.988600,420619,220.22
+BiLSTM-2Layer-Attn,recurrent,10,10,0.046467,0.985550,0.041015,0.986800,559883,256.40
+TCN,tcn,10,10,0.029482,0.990250,0.029306,0.991200,203082,483.61

@@ -11,3 +11,6 @@ wheels/
 
 # data
 data/
+
+# experiment logs
+artifacts/logs/
