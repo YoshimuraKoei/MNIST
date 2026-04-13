@@ -51,11 +51,7 @@ class RecurrentClassifier(nn.Module):
         )
 
         output_size = self.hidden_size * self.num_directions
-        if self.pooling == "attention":
-            self.pool = SequenceAttentionPooling(output_size)
-        else:
-            self.pool = None
-
+        self.pool = SequenceAttentionPooling(output_size) if self.pooling == "attention" else None
         self.fc = nn.Linear(output_size, 10)
 
     def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
@@ -146,15 +142,15 @@ class TransformerClassifier(nn.Module):
 
 
 class ResidualConvBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, dilation: int, dropout: float):
+    def __init__(self, in_channels: int, out_channels: int, dilation: int, kernel_size: int, dropout: float):
         super().__init__()
-        padding = dilation
+        padding = dilation * (kernel_size // 2)
         self.net = nn.Sequential(
-            nn.Conv1d(in_channels, out_channels, kernel_size=3, padding=padding, dilation=dilation),
+            nn.Conv1d(in_channels, out_channels, kernel_size=kernel_size, padding=padding, dilation=dilation),
             nn.BatchNorm1d(out_channels),
             nn.GELU(),
             nn.Dropout(dropout),
-            nn.Conv1d(out_channels, out_channels, kernel_size=3, padding=padding, dilation=dilation),
+            nn.Conv1d(out_channels, out_channels, kernel_size=kernel_size, padding=padding, dilation=dilation),
             nn.BatchNorm1d(out_channels),
         )
         self.skip = nn.Conv1d(in_channels, out_channels, kernel_size=1) if in_channels != out_channels else nn.Identity()
@@ -164,28 +160,75 @@ class ResidualConvBlock(nn.Module):
         return self.activation(self.net(x) + self.skip(x))
 
 
+class TCNEncoder(nn.Module):
+    def __init__(self, in_channels: int, channels: tuple[int, ...], kernel_size: int, dropout: float):
+        super().__init__()
+        blocks = []
+        current_in = in_channels
+        for index, out_channels in enumerate(channels):
+            blocks.append(
+                ResidualConvBlock(
+                    in_channels=current_in,
+                    out_channels=out_channels,
+                    dilation=2**index,
+                    kernel_size=kernel_size,
+                    dropout=dropout,
+                )
+            )
+            current_in = out_channels
+        self.network = nn.Sequential(*blocks)
+        self.output_channels = current_in
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.network(x)
+
+
+class TemporalPooling(nn.Module):
+    def __init__(self, channels: int, pooling: str):
+        super().__init__()
+        self.pooling = pooling
+        self.attention = SequenceAttentionPooling(channels) if pooling == "attention" else None
+        self.output_dim = channels * 2 if pooling == "maxavg" else channels
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        if self.pooling == "avg":
+            return x.mean(dim=-1)
+        if self.pooling == "max":
+            return x.max(dim=-1).values
+        if self.pooling == "maxavg":
+            avg = x.mean(dim=-1)
+            max_values = x.max(dim=-1).values
+            return torch.cat([avg, max_values], dim=1)
+        if self.pooling == "attention":
+            return self.attention(x.transpose(1, 2))
+        raise ValueError(f"Unsupported pooling: {self.pooling}")
+
+
 class TCNClassifier(nn.Module):
-    def __init__(self, channels=(64, 128, 128), dropout: float = 0.1, transpose_input: bool = False):
+    def __init__(
+        self,
+        channels: tuple[int, ...] = (64, 128, 128),
+        kernel_size: int = 3,
+        dropout: float = 0.1,
+        transpose_input: bool = False,
+        pooling: str = "avg",
+    ):
         super().__init__()
         self.seq_len = 28
         self.feature_size = 28
         self.transpose_input = transpose_input
+        self.encoder = TCNEncoder(
+            in_channels=self.feature_size,
+            channels=channels,
+            kernel_size=kernel_size,
+            dropout=dropout,
+        )
+        self.pool = TemporalPooling(self.encoder.output_channels, pooling)
+        self.fc = nn.Linear(self.pool.output_dim, 10)
 
-        blocks = []
-        in_channels = self.feature_size
-        for index, out_channels in enumerate(channels):
-            blocks.append(
-                ResidualConvBlock(
-                    in_channels=in_channels,
-                    out_channels=out_channels,
-                    dilation=2**index,
-                    dropout=dropout,
-                )
-            )
-            in_channels = out_channels
-        self.network = nn.Sequential(*blocks)
-        self.pool = nn.AdaptiveAvgPool1d(1)
-        self.fc = nn.Linear(in_channels, 10)
+    def encode_sequence(self, x: torch.Tensor) -> torch.Tensor:
+        x = self.encoder(x)
+        return self.pool(x)
 
     def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
         batch_size = x.shape[0]
@@ -194,6 +237,91 @@ class TCNClassifier(nn.Module):
             x = x.contiguous()
         else:
             x = x.transpose(1, 2)
-        x = self.network(x)
-        x = self.pool(x).squeeze(-1)
+        x = self.encode_sequence(x)
+        return self.fc(x)
+
+
+class DualTCNClassifier(nn.Module):
+    def __init__(
+        self,
+        channels: tuple[int, ...] = (64, 128, 128),
+        kernel_size: int = 3,
+        dropout: float = 0.1,
+        pooling: str = "avg",
+    ):
+        super().__init__()
+        self.seq_len = 28
+        self.feature_size = 28
+        self.row_encoder = TCNEncoder(self.feature_size, channels, kernel_size, dropout)
+        self.col_encoder = TCNEncoder(self.feature_size, channels, kernel_size, dropout)
+        self.row_pool = TemporalPooling(self.row_encoder.output_channels, pooling)
+        self.col_pool = TemporalPooling(self.col_encoder.output_channels, pooling)
+        self.fc = nn.Sequential(
+            nn.Linear(self.row_pool.output_dim + self.col_pool.output_dim, 128),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(128, 10),
+        )
+
+    def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
+        batch_size = x.shape[0]
+        x = x.view(batch_size, self.seq_len, self.feature_size)
+
+        row_x = self.row_pool(self.row_encoder(x.transpose(1, 2)))
+        col_x = self.col_pool(self.col_encoder(x.contiguous()))
+        return self.fc(torch.cat([row_x, col_x], dim=1))
+
+
+class TCNBiGRUClassifier(nn.Module):
+    def __init__(
+        self,
+        conv_channels: tuple[int, ...] = (64, 128),
+        kernel_size: int = 3,
+        recurrent_hidden: int = 128,
+        recurrent_layers: int = 1,
+        dropout: float = 0.1,
+        transpose_input: bool = False,
+        pooling: str = "attention",
+    ):
+        super().__init__()
+        self.seq_len = 28
+        self.feature_size = 28
+        self.transpose_input = transpose_input
+        self.encoder = TCNEncoder(
+            in_channels=self.feature_size,
+            channels=conv_channels,
+            kernel_size=kernel_size,
+            dropout=dropout,
+        )
+        self.recurrent = nn.GRU(
+            input_size=self.encoder.output_channels,
+            hidden_size=recurrent_hidden,
+            num_layers=recurrent_layers,
+            bidirectional=True,
+            dropout=dropout if recurrent_layers > 1 else 0.0,
+            batch_first=True,
+        )
+        recurrent_output = recurrent_hidden * 2
+        self.pooling = pooling
+        self.pool = SequenceAttentionPooling(recurrent_output) if pooling == "attention" else None
+        self.fc = nn.Linear(recurrent_output, 10)
+
+    def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
+        batch_size = x.shape[0]
+        x = x.view(batch_size, self.seq_len, self.feature_size)
+        if self.transpose_input:
+            x = x.contiguous()
+        else:
+            x = x.transpose(1, 2)
+
+        x = self.encoder(x)
+        x = x.transpose(1, 2)
+        outputs, hidden = self.recurrent(x)
+
+        if self.pooling == "attention":
+            x = self.pool(outputs)
+        else:
+            forward_hidden = hidden[-2]
+            backward_hidden = hidden[-1]
+            x = torch.cat([forward_hidden, backward_hidden], dim=1)
         return self.fc(x)

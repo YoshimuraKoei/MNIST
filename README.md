@@ -34,6 +34,9 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 .venv/bin/python scripts/run_experiments.py --suite baseline --device cpu
 .venv/bin/python scripts/run_experiments.py --suite extended --device cpu
 .venv/bin/python scripts/run_experiments.py --suite finalists --device cpu
+.venv/bin/python scripts/run_experiments.py --suite hypothesis1 --device cpu
+.venv/bin/python scripts/run_experiments.py --suite hypothesis2 --device cpu
+.venv/bin/python scripts/run_experiments.py --suite hypothesis2_final --device cpu
 ```
 
 探索用にデータ数を絞る場合:
@@ -48,3 +51,10 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 ```
 
 結果は `artifacts/experiments/` に JSON と CSV で保存されます。要約は [`RESULT.md`](./RESULT.md) に残しています。
+
+## Hypothesis Loops
+
+第 2 ラウンドでは、単純なモデル比較だけでなく仮説駆動で実験を回しています。
+
+- `hypothesis1`: TCN の強さが行列方向の局所性や pooling に由来するかを検証
+- `hypothesis2`: 局所畳み込み特徴に recurrent readout を重ねるとさらに伸びるかを検証

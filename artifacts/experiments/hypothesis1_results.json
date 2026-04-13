@@ -1,0 +1,464 @@
+[
+  {
+    "name": "TCN",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.06651128029823303,
+    "best_val_acc": 0.98,
+    "test_loss": 0.0567379431668669,
+    "test_acc": 0.9809,
+    "parameter_count": 203082,
+    "elapsed_seconds": 69.00770812504925,
+    "spec": {
+      "name": "TCN",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.7761428857644399,
+        "train_acc": 0.7813333333333333,
+        "val_loss": 0.2502799725532532,
+        "val_acc": 0.92575
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.14792665700117746,
+        "train_acc": 0.9618333333333333,
+        "val_loss": 0.1297412883043289,
+        "val_acc": 0.96125
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.09306306689977646,
+        "train_acc": 0.9748333333333333,
+        "val_loss": 0.09449934613704682,
+        "val_acc": 0.97475
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.06378244513273239,
+        "train_acc": 0.9814166666666667,
+        "val_loss": 0.08286574923992157,
+        "val_acc": 0.97575
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.05134840326507886,
+        "train_acc": 0.986,
+        "val_loss": 0.06651128029823303,
+        "val_acc": 0.98
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.03935615679124991,
+        "train_acc": 0.99,
+        "val_loss": 0.06629909539222717,
+        "val_acc": 0.979
+      }
+    ]
+  },
+  {
+    "name": "TCN-Columns",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.10941564810276032,
+    "best_val_acc": 0.96625,
+    "test_loss": 0.09040496376156806,
+    "test_acc": 0.9736,
+    "parameter_count": 203082,
+    "elapsed_seconds": 68.29972941684537,
+    "spec": {
+      "name": "TCN-Columns",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": true,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.6527132567167282,
+        "train_acc": 0.8134166666666667,
+        "val_loss": 0.2950454878807068,
+        "val_acc": 0.91275
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.16988891828060151,
+        "train_acc": 0.9514166666666667,
+        "val_loss": 0.16032004594802857,
+        "val_acc": 0.94825
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.111744675219059,
+        "train_acc": 0.9691666666666666,
+        "val_loss": 0.15048610663414003,
+        "val_acc": 0.95375
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.081897028028965,
+        "train_acc": 0.9768333333333333,
+        "val_loss": 0.1164420393705368,
+        "val_acc": 0.96275
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.06544193116823832,
+        "train_acc": 0.9813333333333333,
+        "val_loss": 0.12609989655017853,
+        "val_acc": 0.96075
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.05085836873451869,
+        "train_acc": 0.9860833333333333,
+        "val_loss": 0.10941564810276032,
+        "val_acc": 0.96625
+      }
+    ]
+  },
+  {
+    "name": "TCN-WideK5",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.06813112044334411,
+    "best_val_acc": 0.9795,
+    "test_loss": 0.06150707405516878,
+    "test_acc": 0.9802,
+    "parameter_count": 329546,
+    "elapsed_seconds": 74.95940362499095,
+    "spec": {
+      "name": "TCN-WideK5",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": 5,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.5549209468364715,
+        "train_acc": 0.8520833333333333,
+        "val_loss": 0.17380541062355043,
+        "val_acc": 0.947
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.10740432337919871,
+        "train_acc": 0.9698333333333333,
+        "val_loss": 0.14371323704719544,
+        "val_acc": 0.95725
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.06795071413119634,
+        "train_acc": 0.9809166666666667,
+        "val_loss": 0.08047018325328827,
+        "val_acc": 0.97375
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.05095993030071259,
+        "train_acc": 0.9859166666666667,
+        "val_loss": 0.074425177693367,
+        "val_acc": 0.977
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.036119521270195645,
+        "train_acc": 0.9893333333333333,
+        "val_loss": 0.06813112044334411,
+        "val_acc": 0.9795
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.028270661423603693,
+        "train_acc": 0.99175,
+        "val_loss": 0.08637705612182617,
+        "val_acc": 0.9725
+      }
+    ]
+  },
+  {
+    "name": "TCN-MaxAvg",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 4,
+    "best_val_loss": 0.05812470531463623,
+    "best_val_acc": 0.98275,
+    "test_loss": 0.05648757317885757,
+    "test_acc": 0.9824,
+    "parameter_count": 204362,
+    "elapsed_seconds": 70.82138424995355,
+    "spec": {
+      "name": "TCN-MaxAvg",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.7011854326725007,
+        "train_acc": 0.8025833333333333,
+        "val_loss": 0.19391760110855102,
+        "val_acc": 0.9475
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.12143468691905339,
+        "train_acc": 0.96775,
+        "val_loss": 0.10394002747535705,
+        "val_acc": 0.96925
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.07303382196029028,
+        "train_acc": 0.9806666666666667,
+        "val_loss": 0.07162659299373626,
+        "val_acc": 0.979
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.04824346070488294,
+        "train_acc": 0.9870833333333333,
+        "val_loss": 0.05812470531463623,
+        "val_acc": 0.98275
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.034424195051193235,
+        "train_acc": 0.9919166666666667,
+        "val_loss": 0.060675299108028415,
+        "val_acc": 0.98275
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.024050902356704075,
+        "train_acc": 0.9945833333333334,
+        "val_loss": 0.05583140856027603,
+        "val_acc": 0.98275
+      }
+    ]
+  },
+  {
+    "name": "DualTCN",
+    "family": "dual_tcn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.08208203530311585,
+    "best_val_acc": 0.9745,
+    "test_loss": 0.060724674499686805,
+    "test_acc": 0.9804,
+    "parameter_count": 437770,
+    "elapsed_seconds": 142.73480158299208,
+    "spec": {
+      "name": "DualTCN",
+      "family": "dual_tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.615609215537707,
+        "train_acc": 0.8226666666666667,
+        "val_loss": 0.20012101078033448,
+        "val_acc": 0.93925
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.12766245217124622,
+        "train_acc": 0.9595833333333333,
+        "val_loss": 0.11189641487598419,
+        "val_acc": 0.96625
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.07332814680536588,
+        "train_acc": 0.97775,
+        "val_loss": 0.10874881100654601,
+        "val_acc": 0.966
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.052302944978078206,
+        "train_acc": 0.9841666666666666,
+        "val_loss": 0.1123506623506546,
+        "val_acc": 0.9635
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.03936888031164805,
+        "train_acc": 0.98725,
+        "val_loss": 0.0898803985118866,
+        "val_acc": 0.973
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.03366926739613215,
+        "train_acc": 0.98825,
+        "val_loss": 0.08208203530311585,
+        "val_acc": 0.9745
+      }
+    ]
+  },
+  {
+    "name": "DualTCN-MaxAvg",
+    "family": "dual_tcn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.07056294018030167,
+    "best_val_acc": 0.97775,
+    "test_loss": 0.054411499928124246,
+    "test_acc": 0.9826,
+    "parameter_count": 470538,
+    "elapsed_seconds": 142.8268981250003,
+    "spec": {
+      "name": "DualTCN-MaxAvg",
+      "family": "dual_tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.6076428305308024,
+        "train_acc": 0.8168333333333333,
+        "val_loss": 0.20159935569763185,
+        "val_acc": 0.93975
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.11174534364541372,
+        "train_acc": 0.9669166666666666,
+        "val_loss": 0.08767331212759018,
+        "val_acc": 0.973
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.06597855577866236,
+        "train_acc": 0.9810833333333333,
+        "val_loss": 0.08020087540149688,
+        "val_acc": 0.975
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.040153961350520455,
+        "train_acc": 0.9879166666666667,
+        "val_loss": 0.08306218469142913,
+        "val_acc": 0.9745
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.029230253408352534,
+        "train_acc": 0.9918333333333333,
+        "val_loss": 0.07056294018030167,
+        "val_acc": 0.97775
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.02020777172843615,
+        "train_acc": 0.99475,
+        "val_loss": 0.07071262800693512,
+        "val_acc": 0.9765
+      }
+    ]
+  }
+]

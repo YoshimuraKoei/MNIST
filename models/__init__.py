@@ -5,7 +5,13 @@ from .BiLSTM import BiLSTMModel
 from .GRU import GRUModel
 from .BiGRU import BiGRUModel
 from .Transformer import TransformerModel
-from .experiment_models import RecurrentClassifier, TCNClassifier, TransformerClassifier
+from .experiment_models import (
+    DualTCNClassifier,
+    RecurrentClassifier,
+    TCNBiGRUClassifier,
+    TCNClassifier,
+    TransformerClassifier,
+)
 
 __all__ = [
     "RNNModel",
@@ -18,4 +24,6 @@ __all__ = [
     "RecurrentClassifier",
     "TransformerClassifier",
     "TCNClassifier",
+    "DualTCNClassifier",
+    "TCNBiGRUClassifier",
 ]
