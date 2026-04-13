@@ -37,6 +37,7 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 .venv/bin/python scripts/run_experiments.py --suite hypothesis1 --device cpu
 .venv/bin/python scripts/run_experiments.py --suite hypothesis2 --device cpu
 .venv/bin/python scripts/run_experiments.py --suite hypothesis2_final --device cpu
+.venv/bin/python scripts/aggregate_multiseed.py --input-pattern 'artifacts/multiseed/.../*.csv' --output-prefix artifacts/multiseed/aggregate_name
 ```
 
 探索用にデータ数を絞る場合:
@@ -58,3 +59,11 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 
 - `hypothesis1`: TCN の強さが行列方向の局所性や pooling に由来するかを検証
 - `hypothesis2`: 局所畳み込み特徴に recurrent readout を重ねるとさらに伸びるかを検証
+
+多 seed 比較をまとめるための補助スクリプト:
+
+```bash
+.venv/bin/python scripts/aggregate_multiseed.py \
+  --input-pattern 'artifacts/multiseed/hypothesis2_final/seed*/hypothesis2_final_summary.csv' \
+  --output-prefix artifacts/multiseed/hypothesis2_final_aggregate
+```

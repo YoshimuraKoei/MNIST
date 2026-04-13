@@ -1,0 +1,4 @@
+name,runs,mean_val_acc,std_val_acc,mean_test_acc,std_test_acc,mean_val_loss,mean_test_loss,parameter_count,epochs
+TCN-BiGRU,3,0.990117,0.000592,0.991867,0.000492,0.033292,0.028901,303691,10
+TCN-BiGRU-WideK5,3,0.989300,0.001628,0.989933,0.001226,0.036600,0.030351,364619,10
+TCN-MaxAvg,3,0.989867,0.000487,0.991333,0.000249,0.033489,0.028176,204362,10

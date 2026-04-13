@@ -228,8 +228,98 @@
 - 差は非常に小さく、実質的には `TCN-MaxAvg` と `TCN-BiGRU-WideK5` はほぼ同格。
 - そのうえで、パラメータ数と構成の単純さを考えると、実用上の第一候補は `TCN-MaxAvg`。
 
-### 現時点の暫定結論
+### ここまでの暫定結論
 
 - 「TCN が強い理由」は、行列融合よりも局所畳み込みと適切な pooling にある。
-- recurrent を後段に足すと validation は少し伸びうるが、test では決定的な優位を示していない。
-- 次に詰めるなら、`TCN-MaxAvg` と `TCN-BiGRU-WideK5` の複数 seed 比較が最優先。
+- recurrent を後段に足すと validation は少し伸びうるが、1 seed では決定的な優位を示していない。
+- この時点では `TCN-MaxAvg` と `TCN-BiGRU-WideK5` の複数 seed 比較が最優先。
+
+## 2026-04-14 多 seed 判定
+
+### 判定方針
+
+- 仮説の採択・棄却は、単発 seed の勝敗ではなく複数 seed の平均と多数決で判断する。
+- 仮説 1 は subset 条件 (`12000/4000`, 6 epoch) で 3 seed 比較。
+- 仮説 2 はフルデータ条件 (`40000/20000`, 10 epoch) で 3 seed 比較。
+
+使用 seed:
+
+- `42`
+- `123`
+- `777`
+
+### 仮説 1 の再判定
+
+対象:
+
+- `TCN`
+- `TCN-MaxAvg`
+- `TCN-Columns`
+- `DualTCN`
+- `DualTCN-MaxAvg`
+- `TCN-WideK5`
+
+3 seed 集約結果:
+
+| Model | Mean Val Acc | Std | Mean Test Acc | Std |
+| --- | ---: | ---: | ---: | ---: |
+| TCN-MaxAvg | 0.982500 | 0.000736 | 0.983267 | 0.000736 |
+| TCN | 0.981000 | 0.001242 | 0.982000 | 0.001098 |
+| DualTCN | 0.977750 | 0.002354 | 0.980167 | 0.000634 |
+| DualTCN-MaxAvg | 0.977500 | 0.001137 | 0.979300 | 0.002736 |
+| TCN-WideK5 | 0.977167 | 0.004028 | 0.977867 | 0.004177 |
+| TCN-Columns | 0.968333 | 0.001559 | 0.972800 | 0.001349 |
+
+判定:
+
+- 仮説 1 のうち「pooling 改善が効く」は採択。
+- 仮説 1 のうち「行列融合が本質的に効く」は棄却。
+
+理由:
+
+- `TCN-MaxAvg` は 3 seed 平均で素の `TCN` を上回った。
+- `DualTCN` 系はパラメータ増に対して平均性能で優位を示せなかった。
+- `TCN-Columns` は一貫して弱く、列方向単独は主役ではない。
+
+### 仮説 2 の再判定
+
+対象:
+
+- `TCN-MaxAvg`
+- `TCN-BiGRU`
+- `TCN-BiGRU-WideK5`
+
+3 seed 集約結果:
+
+| Model | Mean Val Acc | Std | Mean Test Acc | Std | Params |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TCN-BiGRU | 0.990117 | 0.000592 | 0.991867 | 0.000492 | 303,691 |
+| TCN-MaxAvg | 0.989867 | 0.000487 | 0.991333 | 0.000249 | 204,362 |
+| TCN-BiGRU-WideK5 | 0.989300 | 0.001628 | 0.989933 | 0.001226 | 364,619 |
+
+多数決:
+
+- `TCN-BiGRU` は `TCN-MaxAvg` に対して、validation で 2/3 seed 勝ち
+- `TCN-BiGRU` は `TCN-MaxAvg` に対して、test で 2/3 seed 勝ち
+
+判定:
+
+- 仮説 2 は採択。
+- ただし採択されるのは `TCN-BiGRU` であって、`WideK5` 版ではない。
+
+理由:
+
+- `TCN-BiGRU` は 3 seed 平均で validation/test ともに `TCN-MaxAvg` をわずかに上回った。
+- 差は大きくないが、平均と多数決の両方で `TCN-BiGRU` 側に寄っている。
+- 一方 `TCN-BiGRU-WideK5` は 1 seed では強く見えたが、3 seed 平均では最良ではなかった。
+
+### 現時点の最終結論
+
+- 仮説 1:
+  pooling 改善は採択、行列融合の本質性は棄却。
+- 仮説 2:
+  `TCN` の後段に recurrent readout を足すと、平均的にはわずかに改善するので採択。
+- 現時点の研究上の best model:
+  `TCN-BiGRU`
+- 現時点の実用上の best trade-off:
+  `TCN-MaxAvg`

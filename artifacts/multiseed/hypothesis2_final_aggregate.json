@@ -1,0 +1,165 @@
+{
+  "summary": [
+    {
+      "name": "TCN-BiGRU",
+      "runs": 3,
+      "mean_val_acc": "0.990117",
+      "std_val_acc": "0.000592",
+      "mean_test_acc": "0.991867",
+      "std_test_acc": "0.000492",
+      "mean_val_loss": "0.033292",
+      "mean_test_loss": "0.028901",
+      "parameter_count": 303691,
+      "epochs": 10
+    },
+    {
+      "name": "TCN-BiGRU-WideK5",
+      "runs": 3,
+      "mean_val_acc": "0.989300",
+      "std_val_acc": "0.001628",
+      "mean_test_acc": "0.989933",
+      "std_test_acc": "0.001226",
+      "mean_val_loss": "0.036600",
+      "mean_test_loss": "0.030351",
+      "parameter_count": 364619,
+      "epochs": 10
+    },
+    {
+      "name": "TCN-MaxAvg",
+      "runs": 3,
+      "mean_val_acc": "0.989867",
+      "std_val_acc": "0.000487",
+      "mean_test_acc": "0.991333",
+      "std_test_acc": "0.000249",
+      "mean_val_loss": "0.033489",
+      "mean_test_loss": "0.028176",
+      "parameter_count": 204362,
+      "epochs": 10
+    }
+  ],
+  "details": {
+    "TCN-BiGRU": [
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "8",
+        "best_val_loss": "0.035066",
+        "best_val_acc": "0.989400",
+        "test_loss": "0.028060",
+        "test_acc": "0.992500",
+        "parameter_count": "303691",
+        "elapsed_seconds": "398.91",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed123/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.030631",
+        "best_val_acc": "0.990850",
+        "test_loss": "0.030347",
+        "test_acc": "0.991300",
+        "parameter_count": "303691",
+        "elapsed_seconds": "388.76",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed42/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "10",
+        "best_val_loss": "0.034179",
+        "best_val_acc": "0.990100",
+        "test_loss": "0.028297",
+        "test_acc": "0.991800",
+        "parameter_count": "303691",
+        "elapsed_seconds": "397.26",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed777/hypothesis2_final_summary.csv"
+      }
+    ],
+    "TCN-BiGRU-WideK5": [
+      {
+        "name": "TCN-BiGRU-WideK5",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "8",
+        "best_val_loss": "0.037630",
+        "best_val_acc": "0.988600",
+        "test_loss": "0.028549",
+        "test_acc": "0.990000",
+        "parameter_count": "364619",
+        "elapsed_seconds": "431.34",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed123/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU-WideK5",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.030313",
+        "best_val_acc": "0.991550",
+        "test_loss": "0.027803",
+        "test_acc": "0.991400",
+        "parameter_count": "364619",
+        "elapsed_seconds": "426.88",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed42/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU-WideK5",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "5",
+        "best_val_loss": "0.041858",
+        "best_val_acc": "0.987750",
+        "test_loss": "0.034702",
+        "test_acc": "0.988400",
+        "parameter_count": "364619",
+        "elapsed_seconds": "463.98",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed777/hypothesis2_final_summary.csv"
+      }
+    ],
+    "TCN-MaxAvg": [
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "7",
+        "best_val_loss": "0.035333",
+        "best_val_acc": "0.989450",
+        "test_loss": "0.030356",
+        "test_acc": "0.991000",
+        "parameter_count": "204362",
+        "elapsed_seconds": "428.37",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed123/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.031484",
+        "best_val_acc": "0.990550",
+        "test_loss": "0.028236",
+        "test_acc": "0.991600",
+        "parameter_count": "204362",
+        "elapsed_seconds": "429.37",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed42/hypothesis2_final_summary.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "8",
+        "best_val_loss": "0.033651",
+        "best_val_acc": "0.989600",
+        "test_loss": "0.025936",
+        "test_acc": "0.991400",
+        "parameter_count": "204362",
+        "elapsed_seconds": "444.76",
+        "source_file": "artifacts/multiseed/hypothesis2_final/seed777/hypothesis2_final_summary.csv"
+      }
+    ]
+  }
+}
