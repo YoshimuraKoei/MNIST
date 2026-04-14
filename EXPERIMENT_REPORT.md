@@ -22,6 +22,7 @@
 
 - 保存済み artifact には epoch ごとの損失・精度はあるが、元の実験では epoch ごとの wall-clock 時間は保存していない
 - そのため、このレポートの「epoch の所要時間」は `total elapsed / epochs` で計算した平均 epoch 時間を記載する
+- ただし、最終候補 `TCN-MaxAvg` と `TCN-BiGRU` については、レポート強化のために seed `42`, `123`, `777` で epoch 時間付き rerun を追加実行した
 
 ## モデル分類
 
@@ -149,6 +150,10 @@ z1 z2 z3 ... zT
 
 ![Baseline Average Epoch Time](artifacts/plots/baseline_avg_epoch_time.png)
 
+top baseline 3 モデルの `train loss / val loss / val acc`:
+
+![Top Baseline Diagnostics](artifacts/plots/baseline_top_diagnostics.png)
+
 ### ベースラインから分かったこと
 
 - 素の recurrent より gated recurrent (`LSTM`, `GRU`) の方が明確に強い
@@ -226,6 +231,14 @@ seed: `42`, `123`, `777`
 - `DualTCN` 系はパラメータを大きく増やしたわりに優位を示せなかった
 - `TCN-Columns` は一貫して弱く、列方向単独は本質ではなかった
 
+### 仮説 1 判定表
+
+| 仮説 | 比較 | 指標 | 結果 | 判定 |
+| --- | --- | --- | --- | --- |
+| pooling 改善が効く | `TCN` vs `TCN-MaxAvg` | 3-seed mean test acc | `0.982000 -> 0.983267` | 採択 |
+| 行列融合が効く | `TCN` vs `DualTCN`, `DualTCN-MaxAvg` | 3-seed mean test acc | `TCN` を上回れず | 棄却 |
+| 列方向単独でも十分か | `TCN` vs `TCN-Columns` | 3-seed mean test acc | `0.982000 -> 0.972800` | 棄却 |
+
 ## 仮説 2
 
 ### 仮説
@@ -294,6 +307,44 @@ seed ごとの勝敗:
 
 ![Hypothesis 2 Multiseed Test Accuracy](artifacts/plots/hypothesis2_multiseed_test_acc.png)
 
+### 仮説 2 の追加 rerun による収束確認
+
+上位 2 モデル `TCN-MaxAvg` と `TCN-BiGRU` について、seed `42`, `123`, `777` で epoch 時間付き rerun を追加し、`mean +- std` の帯付き曲線を作成した。
+
+mean validation accuracy:
+
+![Hypothesis 2 Top Multiseed Validation Band](artifacts/plots/hypothesis2_top_multiseed_val_band.png)
+
+mean validation loss:
+
+![Hypothesis 2 Top Multiseed Validation Loss Band](artifacts/plots/hypothesis2_top_multiseed_valloss_band.png)
+
+mean train loss:
+
+![Hypothesis 2 Top Multiseed Train Loss Band](artifacts/plots/hypothesis2_top_multiseed_trainloss_band.png)
+
+mean epoch seconds:
+
+![Hypothesis 2 Top Epoch Seconds Band](artifacts/plots/hypothesis2_top_epoch_seconds_band.png)
+
+accuracy vs time:
+
+![Hypothesis 2 Accuracy Time Trade-off](artifacts/plots/hypothesis2_accuracy_time_tradeoff.png)
+
+これらの図から読み取れること:
+
+- `TCN-MaxAvg` は初期収束が速く、seed 間のばらつきも小さい
+- `TCN-BiGRU` は収束初期は少し遅いが、後半で `val acc` が追いつき、`val loss` も最終的に同程度かやや良い
+- 時間コストは `TCN-BiGRU` の方が高いので、精度と速度のトレードオフが明確に存在する
+- したがって、「研究上の best」と「実用上の best trade-off」を分けて書くのが妥当である
+
+追加 rerun の集約値:
+
+| Model | Mean Test Acc | Std | Mean Seconds / Epoch |
+| --- | ---: | ---: | ---: |
+| TCN-MaxAvg | 0.991333 | 0.000249 | 49.65 |
+| TCN-BiGRU | 0.991867 | 0.000492 | 50.61 |
+
 ### 仮説 2 の結論
 
 - 仮説 2 は採択
@@ -304,6 +355,14 @@ seed ごとの勝敗:
 - 1 seed では `TCN-BiGRU-WideK5` が最良に見える場面があった
 - しかし 3 seed 平均では `TCN-BiGRU` が validation/test の両方で最良だった
 - 改善幅は小さいが、平均値と多数決の両方で `TCN-BiGRU` を支持できる
+
+### 仮説 2 判定表
+
+| 仮説 | 比較 | 指標 | 結果 | 判定 |
+| --- | --- | --- | --- | --- |
+| recurrent readout を足すと改善する | `TCN-MaxAvg` vs `TCN-BiGRU` | 3-seed mean val acc | `0.989867 -> 0.990117` | 採択 |
+| recurrent readout を足すと改善する | `TCN-MaxAvg` vs `TCN-BiGRU` | 3-seed mean test acc | `0.991333 -> 0.991867` | 採択 |
+| kernel を広げた hybrid がさらに良い | `TCN-BiGRU` vs `TCN-BiGRU-WideK5` | 3-seed mean test acc | `0.991867` vs `0.989933` | 棄却 |
 
 ## 最終まとめ
 
@@ -321,6 +380,7 @@ seed ごとの勝敗:
 - `artifacts/experiments/*_summary.csv`
 - `artifacts/multiseed/hypothesis1_aggregate.csv`
 - `artifacts/multiseed/hypothesis2_final_aggregate.csv`
+- `artifacts/report_runs/hypothesis2_final/seed*/hypothesis2_final_results.json`
 - `artifacts/plots/*.png`
 - `scripts/run_experiments.py`
 - `scripts/aggregate_multiseed.py`

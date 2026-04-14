@@ -1,0 +1,4 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+TCN-MaxAvg,tcn,10,9,0.031484,0.990550,0.028236,0.991600,204362,417.93
+TCN-BiGRU,tcn_bigru,10,9,0.030631,0.990850,0.030347,0.991300,303691,531.00
+TCN-BiGRU-WideK5,tcn_bigru,10,9,0.030313,0.991550,0.027803,0.991400,364619,648.98

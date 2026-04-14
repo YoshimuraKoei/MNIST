@@ -204,6 +204,7 @@ def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader
         train_loss = 0.0
         train_correct = 0
         train_examples = 0
+        epoch_start = time.perf_counter()
 
         for inputs, labels in dataloaders["train"]:
             inputs = inputs.to(device)
@@ -232,6 +233,7 @@ def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader
         epoch_logs.append(
             {
                 "epoch": epoch,
+                "epoch_seconds": time.perf_counter() - epoch_start,
                 "train_loss": train_loss,
                 "train_acc": train_acc,
                 "val_loss": val_loss,
