@@ -108,6 +108,21 @@ def load_report_run_results() -> dict[str, list[dict]]:
     return per_seed
 
 
+def load_image_vs_sequence_multiseed_results() -> dict[str, list[dict]]:
+    per_seed: dict[str, list[dict]] = {}
+    for seed in ("seed42", "seed123", "seed777"):
+        if seed == "seed42":
+            cnn_results = load_results(EXPERIMENTS_DIR / "image_vs_sequence_final_results.json")
+        else:
+            cnn_results = load_results(MULTISEED_DIR / "image_cnn_top" / seed / "image_cnn_top_results.json")
+        tcn_results = load_results(REPORT_RUNS_DIR / seed / "hypothesis2_final_results.json")
+
+        selected = [result for result in cnn_results if result["name"] == "CNN-Deep"]
+        selected.extend(result for result in tcn_results if result["name"] in {"TCN-MaxAvg", "TCN-BiGRU"})
+        per_seed[seed] = selected
+    return per_seed
+
+
 def collect_multiseed_curves(per_seed: dict[str, list[dict]], model_names: list[str], metric: str) -> dict[str, np.ndarray]:
     curves: dict[str, list[list[float]]] = defaultdict(list)
     for results in per_seed.values():
@@ -173,6 +188,21 @@ def plot_accuracy_time_tradeoff(per_seed: dict[str, list[dict]], title: str, out
     plt.close()
 
 
+def plot_accuracy_parameter_tradeoff(results: list[dict], title: str, output_name: str) -> None:
+    plt.figure(figsize=(9, 6))
+    for result in results:
+        plt.scatter(result["parameter_count"], result["test_acc"], s=90)
+        plt.annotate(result["name"], (result["parameter_count"], result["test_acc"]), textcoords="offset points", xytext=(6, 4))
+
+    plt.title(title)
+    plt.xlabel("Trainable Parameters")
+    plt.ylabel("Test Accuracy")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(PLOTS_DIR / output_name, dpi=160)
+    plt.close()
+
+
 def plot_top_baseline_diagnostics(results: list[dict], model_names: list[str], output_name: str) -> None:
     selected = [result for result in results if result["name"] in model_names]
     selected.sort(key=lambda result: model_names.index(result["name"]))
@@ -205,7 +235,10 @@ def main() -> None:
     hypothesis1 = load_results(EXPERIMENTS_DIR / "hypothesis1_results.json")
     hypothesis2 = load_results(EXPERIMENTS_DIR / "hypothesis2_results.json")
     hypothesis2_final = load_results(EXPERIMENTS_DIR / "hypothesis2_final_results.json")
+    image_vs_sequence = load_results(EXPERIMENTS_DIR / "image_vs_sequence_results.json")
+    image_vs_sequence_final = load_results(EXPERIMENTS_DIR / "image_vs_sequence_final_results.json")
     per_seed_finalists = load_report_run_results()
+    per_seed_image_vs_sequence = load_image_vs_sequence_multiseed_results()
 
     plot_line_chart(
         baseline,
@@ -292,6 +325,41 @@ def main() -> None:
         per_seed_finalists,
         title="Top Finalists: Accuracy vs Time Trade-off",
         output_name="hypothesis2_accuracy_time_tradeoff.png",
+    )
+    plot_line_chart(
+        image_vs_sequence,
+        "Image Models vs Sequence Models: Subset Validation Accuracy by Epoch",
+        "image_vs_sequence_screen_val_curves.png",
+    )
+    plot_line_chart(
+        image_vs_sequence_final,
+        "Image Models vs Sequence Models: Full-data Validation Accuracy by Epoch",
+        "image_vs_sequence_final_val_curves.png",
+    )
+    plot_aggregate_chart(
+        load_csv(MULTISEED_DIR / "image_vs_sequence_final_aggregate.csv"),
+        "Image CNN vs Sequence Best: Mean Test Accuracy Across Seeds",
+        "mean_test_acc",
+        "std_test_acc",
+        "image_vs_sequence_multiseed_test_acc.png",
+    )
+    plot_multiseed_band(
+        per_seed_image_vs_sequence,
+        ["CNN-Deep", "TCN-MaxAvg", "TCN-BiGRU"],
+        metric="val_acc",
+        title="CNN-Deep vs Sequence Best: Mean Validation Accuracy Across Seeds",
+        output_name="image_vs_sequence_multiseed_val_band.png",
+        ylabel="Validation Accuracy",
+    )
+    plot_accuracy_time_tradeoff(
+        per_seed_image_vs_sequence,
+        title="CNN-Deep vs Sequence Best: Accuracy vs Time Trade-off",
+        output_name="image_vs_sequence_accuracy_time_tradeoff.png",
+    )
+    plot_accuracy_parameter_tradeoff(
+        image_vs_sequence_final,
+        title="Image Models vs Sequence Models: Accuracy vs Parameter Count",
+        output_name="image_vs_sequence_accuracy_params.png",
     )
 
 

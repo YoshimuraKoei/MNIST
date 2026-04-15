@@ -1,0 +1,165 @@
+{
+  "summary": [
+    {
+      "name": "CNN-Deep",
+      "runs": 3,
+      "mean_val_acc": "0.991317",
+      "std_val_acc": "0.000397",
+      "mean_test_acc": "0.992900",
+      "std_test_acc": "0.001131",
+      "mean_val_loss": "0.027567",
+      "mean_test_loss": "0.021145",
+      "parameter_count": 127306,
+      "epochs": 10
+    },
+    {
+      "name": "TCN-BiGRU",
+      "runs": 3,
+      "mean_val_acc": "0.990117",
+      "std_val_acc": "0.000592",
+      "mean_test_acc": "0.991867",
+      "std_test_acc": "0.000492",
+      "mean_val_loss": "0.033292",
+      "mean_test_loss": "0.028901",
+      "parameter_count": 303691,
+      "epochs": 10
+    },
+    {
+      "name": "TCN-MaxAvg",
+      "runs": 3,
+      "mean_val_acc": "0.989867",
+      "std_val_acc": "0.000487",
+      "mean_test_acc": "0.991333",
+      "std_test_acc": "0.000249",
+      "mean_val_loss": "0.033489",
+      "mean_test_loss": "0.028176",
+      "parameter_count": 204362,
+      "epochs": 10
+    }
+  ],
+  "details": {
+    "CNN-Deep": [
+      {
+        "name": "CNN-Deep",
+        "family": "image_cnn",
+        "epochs": "10",
+        "best_epoch": "5",
+        "best_val_loss": "0.030965",
+        "best_val_acc": "0.990900",
+        "test_loss": "0.025120",
+        "test_acc": "0.991300",
+        "parameter_count": "127306",
+        "elapsed_seconds": "473.56",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed123/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "CNN-Deep",
+        "family": "image_cnn",
+        "epochs": "10",
+        "best_epoch": "10",
+        "best_val_loss": "0.025146",
+        "best_val_acc": "0.991850",
+        "test_loss": "0.018252",
+        "test_acc": "0.993700",
+        "parameter_count": "127306",
+        "elapsed_seconds": "501.35",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed42/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "CNN-Deep",
+        "family": "image_cnn",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.026591",
+        "best_val_acc": "0.991200",
+        "test_loss": "0.020062",
+        "test_acc": "0.993700",
+        "parameter_count": "127306",
+        "elapsed_seconds": "562.86",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed777/image_vs_sequence_final_summary.csv"
+      }
+    ],
+    "TCN-BiGRU": [
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "8",
+        "best_val_loss": "0.035066",
+        "best_val_acc": "0.989400",
+        "test_loss": "0.028060",
+        "test_acc": "0.992500",
+        "parameter_count": "303691",
+        "elapsed_seconds": "567.77",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed123/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.030631",
+        "best_val_acc": "0.990850",
+        "test_loss": "0.030347",
+        "test_acc": "0.991300",
+        "parameter_count": "303691",
+        "elapsed_seconds": "531.00",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed42/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "TCN-BiGRU",
+        "family": "tcn_bigru",
+        "epochs": "10",
+        "best_epoch": "10",
+        "best_val_loss": "0.034179",
+        "best_val_acc": "0.990100",
+        "test_loss": "0.028297",
+        "test_acc": "0.991800",
+        "parameter_count": "303691",
+        "elapsed_seconds": "466.84",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed777/image_vs_sequence_final_summary.csv"
+      }
+    ],
+    "TCN-MaxAvg": [
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "7",
+        "best_val_loss": "0.035333",
+        "best_val_acc": "0.989450",
+        "test_loss": "0.030356",
+        "test_acc": "0.991000",
+        "parameter_count": "204362",
+        "elapsed_seconds": "610.50",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed123/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "9",
+        "best_val_loss": "0.031484",
+        "best_val_acc": "0.990550",
+        "test_loss": "0.028236",
+        "test_acc": "0.991600",
+        "parameter_count": "204362",
+        "elapsed_seconds": "417.93",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed42/image_vs_sequence_final_summary.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "10",
+        "best_epoch": "8",
+        "best_val_loss": "0.033651",
+        "best_val_acc": "0.989600",
+        "test_loss": "0.025936",
+        "test_acc": "0.991400",
+        "parameter_count": "204362",
+        "elapsed_seconds": "517.86",
+        "source_file": "artifacts/multiseed/image_vs_sequence_final/seed777/image_vs_sequence_final_summary.csv"
+      }
+    ]
+  }
+}

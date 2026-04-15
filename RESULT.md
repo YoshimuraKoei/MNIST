@@ -323,3 +323,89 @@
   `TCN-BiGRU`
 - 現時点の実用上の best trade-off:
   `TCN-MaxAvg`
+
+## Round 3: 2D CNN vs Sequence Best Models
+
+前回までの結論は、MNIST を `28` ステップの系列として扱うなら `TCN-BiGRU` / `TCN-MaxAvg` が強い、というものだった。
+
+ただし、MNIST は本来画像なので、次の仮説を検証した。
+
+### 仮説 3
+
+MNIST では 2D 空間構造が本質なので、純粋な 2D CNN は時系列化した `TCN-MaxAvg` / `TCN-BiGRU` を上回る。
+
+### subset screen
+
+設定:
+
+- train subset: `12000`
+- val subset: `4000`
+- epochs: `6`
+- seed: `42`
+
+| Model | Params | Best Val Acc | Test Acc |
+| --- | ---: | ---: | ---: |
+| TCN-MaxAvg | 204,362 | 0.982750 | 0.982400 |
+| CNN-Comparable | 421,834 | 0.982500 | 0.985300 |
+| CNN-Deep | 127,306 | 0.981250 | 0.986100 |
+| TCN-BiGRU | 303,691 | 0.979250 | 0.982800 |
+| BiGRU-2Layer-Attn | 420,619 | 0.965500 | 0.970200 |
+| TransformerMean | 273,802 | 0.953750 | 0.960900 |
+| MLP | 235,146 | 0.936750 | 0.943400 |
+| SmallCNN | 23,818 | 0.747750 | 0.742700 |
+
+subset では validation は `TCN-MaxAvg` が僅差トップ、test は `CNN-Deep` がトップだった。
+
+### full-data 追試
+
+設定:
+
+- train: `40000`
+- val: `20000`
+- epochs: `10`
+- seed: `42`
+
+| Model | Params | Best Val Acc | Test Acc |
+| --- | ---: | ---: | ---: |
+| CNN-Deep | 127,306 | 0.991850 | 0.993700 |
+| CNN-Comparable | 421,834 | 0.990950 | 0.990500 |
+| TCN-BiGRU | 303,691 | 0.990850 | 0.991300 |
+| TCN-MaxAvg | 204,362 | 0.990550 | 0.991600 |
+| SmallCNN | 23,818 | 0.949350 | 0.954300 |
+
+full-data seed `42` では `CNN-Deep` が validation/test ともに最良だった。
+
+### multi-seed 確認
+
+`CNN-Deep` を seed `42`, `123`, `777` で確認し、前回の `TCN-MaxAvg` / `TCN-BiGRU` の 3 seed rerun と比較した。
+
+| Model | Runs | Mean Val Acc | Std | Mean Test Acc | Std | Params |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| CNN-Deep | 3 | 0.991317 | 0.000397 | 0.992900 | 0.001131 | 127,306 |
+| TCN-BiGRU | 3 | 0.990117 | 0.000592 | 0.991867 | 0.000492 | 303,691 |
+| TCN-MaxAvg | 3 | 0.989867 | 0.000487 | 0.991333 | 0.000249 | 204,362 |
+
+### 判定
+
+仮説 3 は採択。
+
+理由:
+
+- `CNN-Deep` は 3 seed 平均で validation/test の両方で `TCN-BiGRU` と `TCN-MaxAvg` を上回った。
+- `CNN-Deep` は `TCN-BiGRU` よりパラメータ数が少ない。
+- `SmallCNN` は弱かったため、CNN なら何でもよいわけではなく、十分な表現力と pooling 設計が必要。
+
+### 更新された結論
+
+- sequence-only 設定の best research model:
+  `TCN-BiGRU`
+- sequence-only 設定の best trade-off:
+  `TCN-MaxAvg`
+- 画像分類としての best model:
+  `CNN-Deep`
+
+重要な解釈:
+
+- `TCN` の強さは temporal modeling というより、局所畳み込みの帰納バイアスに強く依存している。
+- MNIST では、その帰納バイアスを 2D に拡張した CNN がさらに強い。
+- ただし `TCN` 系も大きく負けているわけではなく、row-wise sequence representation でも MNIST の構造をかなり拾えている。

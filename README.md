@@ -19,6 +19,7 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 - `column-wise sequence` の比較
 - `TCN`
 - `Transformer CLS pooling / deeper encoder`
+- `MLP / 2D CNN` の画像分類 baseline
 
 ## Run
 
@@ -37,6 +38,8 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 .venv/bin/python scripts/run_experiments.py --suite hypothesis1 --device cpu
 .venv/bin/python scripts/run_experiments.py --suite hypothesis2 --device cpu
 .venv/bin/python scripts/run_experiments.py --suite hypothesis2_final --device cpu
+.venv/bin/python scripts/run_experiments.py --suite image_vs_sequence --device cpu
+.venv/bin/python scripts/run_experiments.py --suite image_vs_sequence_final --device cpu
 .venv/bin/python scripts/aggregate_multiseed.py --input-pattern 'artifacts/multiseed/.../*.csv' --output-prefix artifacts/multiseed/aggregate_name
 ```
 
@@ -59,6 +62,7 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
 
 - `hypothesis1`: TCN の強さが行列方向の局所性や pooling に由来するかを検証
 - `hypothesis2`: 局所畳み込み特徴に recurrent readout を重ねるとさらに伸びるかを検証
+- `image_vs_sequence`: 純粋な 2D CNN が sequence best models を上回るかを検証
 
 多 seed 比較をまとめるための補助スクリプト:
 
@@ -67,3 +71,14 @@ MNIST を通常の画像分類としてではなく、`28 x 28` 画像を `28` �
   --input-pattern 'artifacts/multiseed/hypothesis2_final/seed*/hypothesis2_final_summary.csv' \
   --output-prefix artifacts/multiseed/hypothesis2_final_aggregate
 ```
+
+## Current Findings
+
+- sequence-only 設定の best research model は `TCN-BiGRU`
+- sequence-only 設定の best trade-off は `TCN-MaxAvg`
+- 画像分類としては `CNN-Deep` が 3 seed 平均で `TCN-BiGRU` / `TCN-MaxAvg` を上回った
+
+詳細:
+
+- [`EXPERIMENT_REPORT.md`](./EXPERIMENT_REPORT.md)
+- [`IMAGE_VS_SEQUENCE_REPORT.md`](./IMAGE_VS_SEQUENCE_REPORT.md)

@@ -1,0 +1,9 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+MLP,image_mlp,6,6,0.205749,0.936750,0.181134,0.943400,235146,9.23
+SmallCNN,image_cnn,6,6,0.860693,0.747750,0.865008,0.742700,23818,58.44
+CNN-Comparable,image_cnn,6,6,0.057710,0.982500,0.047878,0.985300,421834,60.99
+CNN-Deep,image_cnn,6,5,0.060984,0.981250,0.045692,0.986100,127306,87.73
+TransformerMean,baseline_transformer,6,6,0.152463,0.953750,0.132475,0.960900,273802,131.19
+BiGRU-2Layer-Attn,recurrent,6,5,0.112558,0.965500,0.093389,0.970200,420619,143.86
+TCN-MaxAvg,tcn,6,4,0.058125,0.982750,0.056488,0.982400,204362,182.00
+TCN-BiGRU,tcn_bigru,6,6,0.063836,0.979250,0.054516,0.982800,303691,171.02

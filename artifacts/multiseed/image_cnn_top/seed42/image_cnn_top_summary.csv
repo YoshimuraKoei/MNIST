@@ -1,0 +1,2 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+CNN-Deep,image_cnn,10,10,0.025146,0.991850,0.018252,0.993700,127306,501.35

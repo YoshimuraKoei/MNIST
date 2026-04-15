@@ -1,0 +1,4 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+CNN-Deep,image_cnn,10,9,0.026591,0.991200,0.020062,0.993700,127306,562.86
+TCN-MaxAvg,tcn,10,8,0.033651,0.989600,0.025936,0.991400,204362,517.86
+TCN-BiGRU,tcn_bigru,10,10,0.034179,0.990100,0.028297,0.991800,303691,466.84

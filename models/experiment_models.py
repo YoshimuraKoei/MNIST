@@ -325,3 +325,85 @@ class TCNBiGRUClassifier(nn.Module):
             backward_hidden = hidden[-1]
             x = torch.cat([forward_hidden, backward_hidden], dim=1)
         return self.fc(x)
+
+
+class ImageMLPClassifier(nn.Module):
+    def __init__(
+        self,
+        hidden_sizes: tuple[int, ...] = (256, 128),
+        dropout: float = 0.1,
+    ):
+        super().__init__()
+        layers: list[nn.Module] = []
+        input_dim = 28 * 28
+        for hidden_size in hidden_sizes:
+            layers.extend(
+                [
+                    nn.Linear(input_dim, hidden_size),
+                    nn.GELU(),
+                    nn.Dropout(dropout),
+                ]
+            )
+            input_dim = hidden_size
+        layers.append(nn.Linear(input_dim, 10))
+        self.network = nn.Sequential(*layers)
+
+    def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
+        return self.network(x.view(x.size(0), -1))
+
+
+class ImageCNNClassifier(nn.Module):
+    def __init__(
+        self,
+        channels: tuple[int, ...] = (32, 64),
+        dropout: float = 0.1,
+        hidden_size: int = 128,
+        pooling: str = "flatten",
+    ):
+        super().__init__()
+        self.pooling = pooling
+        blocks: list[nn.Module] = []
+        in_channels = 1
+        spatial_size = 28
+        for out_channels in channels:
+            blocks.extend(
+                [
+                    nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+                    nn.BatchNorm2d(out_channels),
+                    nn.GELU(),
+                    nn.MaxPool2d(kernel_size=2),
+                    nn.Dropout2d(dropout),
+                ]
+            )
+            in_channels = out_channels
+            spatial_size //= 2
+
+        self.features = nn.Sequential(*blocks)
+        if pooling == "flatten":
+            classifier_input = in_channels * spatial_size * spatial_size
+        elif pooling == "avg":
+            self.global_pool = nn.AdaptiveAvgPool2d((1, 1))
+            classifier_input = in_channels
+        elif pooling == "maxavg":
+            self.global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+            self.global_max_pool = nn.AdaptiveMaxPool2d((1, 1))
+            classifier_input = in_channels * 2
+        else:
+            raise ValueError(f"Unsupported CNN pooling: {pooling}")
+
+        self.classifier = nn.Sequential(
+            nn.Linear(classifier_input, hidden_size),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_size, 10),
+        )
+
+    def forward(self, x: torch.Tensor, device=None) -> torch.Tensor:
+        x = self.features(x)
+        if self.pooling == "avg":
+            x = self.global_pool(x)
+        elif self.pooling == "maxavg":
+            avg = self.global_avg_pool(x)
+            max_values = self.global_max_pool(x)
+            x = torch.cat([avg, max_values], dim=1)
+        return self.classifier(x.view(x.size(0), -1))

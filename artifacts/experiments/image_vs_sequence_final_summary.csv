@@ -1,0 +1,6 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+SmallCNN,image_cnn,10,9,0.202192,0.949350,0.186799,0.954300,23818,330.91
+CNN-Comparable,image_cnn,10,8,0.032169,0.990950,0.029463,0.990500,421834,354.94
+CNN-Deep,image_cnn,10,10,0.025146,0.991850,0.018252,0.993700,127306,501.35
+TCN-MaxAvg,tcn,10,9,0.031484,0.990550,0.028236,0.991600,204362,1033.07
+TCN-BiGRU,tcn_bigru,10,9,0.030631,0.990850,0.030347,0.991300,303691,1092.13
