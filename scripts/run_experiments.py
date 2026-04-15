@@ -29,6 +29,7 @@ from models import (
     TransformerModel,
 )
 from models.experiment_models import RecurrentClassifier, TCNClassifier, TransformerClassifier
+from models.experiment_models import DualTCNClassifier, TCNBiGRUClassifier
 
 
 @dataclass
@@ -46,6 +47,12 @@ class ExperimentSpec:
     num_heads: int | None = None
     ff_dim: int | None = None
     dropout: float = 0.1
+    kernel_size: int | None = None
+    pooling_mode: str | None = None
+    channels: tuple[int, ...] | None = None
+    conv_channels: tuple[int, ...] | None = None
+    recurrent_hidden: int | None = None
+    recurrent_layers: int | None = None
 
 
 BASELINE_SPECS = [
@@ -75,6 +82,28 @@ FINALISTS = [
     ExperimentSpec(name="BiGRU-2Layer-Attn", family="recurrent", epochs=10, hidden_size=128, num_layers=2, bidirectional=True, pooling="attention", dropout=0.1),
     ExperimentSpec(name="BiLSTM-2Layer-Attn", family="recurrent", epochs=10, hidden_size=128, num_layers=2, bidirectional=True, pooling="attention", dropout=0.1),
     ExperimentSpec(name="TCN", family="tcn", epochs=10, dropout=0.1),
+]
+
+HYPOTHESIS1_SPECS = [
+    ExperimentSpec(name="TCN", family="tcn", epochs=6, dropout=0.1),
+    ExperimentSpec(name="TCN-Columns", family="tcn", epochs=6, dropout=0.1, transpose_input=True),
+    ExperimentSpec(name="TCN-WideK5", family="tcn", epochs=6, dropout=0.1, kernel_size=5),
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=6, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="DualTCN", family="dual_tcn", epochs=6, dropout=0.1),
+    ExperimentSpec(name="DualTCN-MaxAvg", family="dual_tcn", epochs=6, dropout=0.1, pooling_mode="maxavg"),
+]
+
+HYPOTHESIS2_SPECS = [
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=6, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="BiGRU-2Layer-Attn", family="recurrent", epochs=6, hidden_size=128, num_layers=2, bidirectional=True, pooling="attention", dropout=0.1),
+    ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=6, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+    ExperimentSpec(name="TCN-BiGRU-WideK5", family="tcn_bigru", epochs=6, conv_channels=(64, 128), kernel_size=5, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+]
+
+HYPOTHESIS2_FINALISTS = [
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=10, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=10, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+    ExperimentSpec(name="TCN-BiGRU-WideK5", family="tcn_bigru", epochs=10, conv_channels=(64, 128), kernel_size=5, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
 ]
 
 
@@ -175,6 +204,7 @@ def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader
         train_loss = 0.0
         train_correct = 0
         train_examples = 0
+        epoch_start = time.perf_counter()
 
         for inputs, labels in dataloaders["train"]:
             inputs = inputs.to(device)
@@ -203,6 +233,7 @@ def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader
         epoch_logs.append(
             {
                 "epoch": epoch,
+                "epoch_seconds": time.perf_counter() - epoch_start,
                 "train_loss": train_loss,
                 "train_acc": train_acc,
                 "val_loss": val_loss,
@@ -278,7 +309,30 @@ def build_model(spec: ExperimentSpec) -> nn.Module:
             transpose_input=spec.transpose_input,
         )
     if spec.family == "tcn":
-        return TCNClassifier(dropout=spec.dropout, transpose_input=spec.transpose_input)
+        return TCNClassifier(
+            channels=spec.channels or (64, 128, 128),
+            kernel_size=spec.kernel_size or 3,
+            dropout=spec.dropout,
+            transpose_input=spec.transpose_input,
+            pooling=spec.pooling_mode or "avg",
+        )
+    if spec.family == "dual_tcn":
+        return DualTCNClassifier(
+            channels=spec.channels or (64, 128, 128),
+            kernel_size=spec.kernel_size or 3,
+            dropout=spec.dropout,
+            pooling=spec.pooling_mode or "avg",
+        )
+    if spec.family == "tcn_bigru":
+        return TCNBiGRUClassifier(
+            conv_channels=spec.conv_channels or (64, 128),
+            kernel_size=spec.kernel_size or 3,
+            recurrent_hidden=spec.recurrent_hidden or 128,
+            recurrent_layers=spec.recurrent_layers or 1,
+            dropout=spec.dropout,
+            transpose_input=spec.transpose_input,
+            pooling=spec.pooling or "attention",
+        )
 
     raise ValueError(f"Unsupported family: {spec.family}")
 
@@ -290,6 +344,12 @@ def resolve_suite(name: str) -> list[ExperimentSpec]:
         return EXTENDED_SPECS
     if name == "finalists":
         return FINALISTS
+    if name == "hypothesis1":
+        return HYPOTHESIS1_SPECS
+    if name == "hypothesis2":
+        return HYPOTHESIS2_SPECS
+    if name == "hypothesis2_final":
+        return HYPOTHESIS2_FINALISTS
     if name == "all":
         return BASELINE_SPECS + EXTENDED_SPECS + FINALISTS
     raise ValueError(f"Unknown suite: {name}")
@@ -328,7 +388,7 @@ def save_results(results: list[dict], output_dir: Path, suite: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--suite", choices=["baseline", "extended", "finalists", "all"], default="baseline")
+    parser.add_argument("--suite", choices=["baseline", "extended", "finalists", "hypothesis1", "hypothesis2", "hypothesis2_final", "all"], default="baseline")
     parser.add_argument("--device", choices=["auto", "cpu", "cuda", "mps"], default="auto")
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--seed", type=int, default=42)

@@ -1,0 +1,324 @@
+{
+  "summary": [
+    {
+      "name": "DualTCN",
+      "runs": 3,
+      "mean_val_acc": "0.977750",
+      "std_val_acc": "0.002354",
+      "mean_test_acc": "0.980167",
+      "std_test_acc": "0.000634",
+      "mean_val_loss": "0.076573",
+      "mean_test_loss": "0.062835",
+      "parameter_count": 437770,
+      "epochs": 6
+    },
+    {
+      "name": "DualTCN-MaxAvg",
+      "runs": 3,
+      "mean_val_acc": "0.977500",
+      "std_val_acc": "0.001137",
+      "mean_test_acc": "0.979300",
+      "std_test_acc": "0.002736",
+      "mean_val_loss": "0.073121",
+      "mean_test_loss": "0.065843",
+      "parameter_count": 470538,
+      "epochs": 6
+    },
+    {
+      "name": "TCN",
+      "runs": 3,
+      "mean_val_acc": "0.981000",
+      "std_val_acc": "0.001242",
+      "mean_test_acc": "0.982000",
+      "std_test_acc": "0.001098",
+      "mean_val_loss": "0.066336",
+      "mean_test_loss": "0.055996",
+      "parameter_count": 203082,
+      "epochs": 6
+    },
+    {
+      "name": "TCN-Columns",
+      "runs": 3,
+      "mean_val_acc": "0.968333",
+      "std_val_acc": "0.001559",
+      "mean_test_acc": "0.972800",
+      "std_test_acc": "0.001349",
+      "mean_val_loss": "0.103410",
+      "mean_test_loss": "0.089234",
+      "parameter_count": 203082,
+      "epochs": 6
+    },
+    {
+      "name": "TCN-MaxAvg",
+      "runs": 3,
+      "mean_val_acc": "0.982500",
+      "std_val_acc": "0.000736",
+      "mean_test_acc": "0.983267",
+      "std_test_acc": "0.000736",
+      "mean_val_loss": "0.058852",
+      "mean_test_loss": "0.052525",
+      "parameter_count": 204362,
+      "epochs": 6
+    },
+    {
+      "name": "TCN-WideK5",
+      "runs": 3,
+      "mean_val_acc": "0.977167",
+      "std_val_acc": "0.004028",
+      "mean_test_acc": "0.977867",
+      "std_test_acc": "0.004177",
+      "mean_val_loss": "0.074807",
+      "mean_test_loss": "0.070392",
+      "parameter_count": 329546,
+      "epochs": 6
+    }
+  ],
+  "details": {
+    "DualTCN": [
+      {
+        "name": "DualTCN",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "4",
+        "best_val_loss": "0.074980",
+        "best_val_acc": "0.978750",
+        "test_loss": "0.066698",
+        "test_acc": "0.979300",
+        "parameter_count": "437770",
+        "elapsed_seconds": "148.47",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "DualTCN",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.082082",
+        "best_val_acc": "0.974500",
+        "test_loss": "0.060725",
+        "test_acc": "0.980400",
+        "parameter_count": "437770",
+        "elapsed_seconds": "158.87",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "DualTCN",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.072658",
+        "best_val_acc": "0.980000",
+        "test_loss": "0.061083",
+        "test_acc": "0.980800",
+        "parameter_count": "437770",
+        "elapsed_seconds": "152.04",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ],
+    "DualTCN-MaxAvg": [
+      {
+        "name": "DualTCN-MaxAvg",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.073139",
+        "best_val_acc": "0.978750",
+        "test_loss": "0.066526",
+        "test_acc": "0.979400",
+        "parameter_count": "470538",
+        "elapsed_seconds": "153.05",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "DualTCN-MaxAvg",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.070563",
+        "best_val_acc": "0.977750",
+        "test_loss": "0.054411",
+        "test_acc": "0.982600",
+        "parameter_count": "470538",
+        "elapsed_seconds": "159.06",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "DualTCN-MaxAvg",
+        "family": "dual_tcn",
+        "epochs": "6",
+        "best_epoch": "4",
+        "best_val_loss": "0.075661",
+        "best_val_acc": "0.976000",
+        "test_loss": "0.076591",
+        "test_acc": "0.975900",
+        "parameter_count": "470538",
+        "elapsed_seconds": "154.67",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ],
+    "TCN": [
+      {
+        "name": "TCN",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.063806",
+        "best_val_acc": "0.980250",
+        "test_loss": "0.053534",
+        "test_acc": "0.983500",
+        "parameter_count": "203082",
+        "elapsed_seconds": "76.23",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "TCN",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.066511",
+        "best_val_acc": "0.980000",
+        "test_loss": "0.056738",
+        "test_acc": "0.980900",
+        "parameter_count": "203082",
+        "elapsed_seconds": "68.97",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "TCN",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.068690",
+        "best_val_acc": "0.982750",
+        "test_loss": "0.057716",
+        "test_acc": "0.981600",
+        "parameter_count": "203082",
+        "elapsed_seconds": "96.91",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ],
+    "TCN-Columns": [
+      {
+        "name": "TCN-Columns",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "4",
+        "best_val_loss": "0.110479",
+        "best_val_acc": "0.968750",
+        "test_loss": "0.094410",
+        "test_acc": "0.970900",
+        "parameter_count": "203082",
+        "elapsed_seconds": "75.26",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "TCN-Columns",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.109416",
+        "best_val_acc": "0.966250",
+        "test_loss": "0.090405",
+        "test_acc": "0.973600",
+        "parameter_count": "203082",
+        "elapsed_seconds": "68.23",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "TCN-Columns",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.090334",
+        "best_val_acc": "0.970000",
+        "test_loss": "0.082888",
+        "test_acc": "0.973900",
+        "parameter_count": "203082",
+        "elapsed_seconds": "76.82",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ],
+    "TCN-MaxAvg": [
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.059754",
+        "best_val_acc": "0.981500",
+        "test_loss": "0.049566",
+        "test_acc": "0.984200",
+        "parameter_count": "204362",
+        "elapsed_seconds": "75.33",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "4",
+        "best_val_loss": "0.058125",
+        "best_val_acc": "0.982750",
+        "test_loss": "0.056488",
+        "test_acc": "0.982400",
+        "parameter_count": "204362",
+        "elapsed_seconds": "69.48",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "TCN-MaxAvg",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.058676",
+        "best_val_acc": "0.983250",
+        "test_loss": "0.051520",
+        "test_acc": "0.983200",
+        "parameter_count": "204362",
+        "elapsed_seconds": "78.22",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ],
+    "TCN-WideK5": [
+      {
+        "name": "TCN-WideK5",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "4",
+        "best_val_loss": "0.096129",
+        "best_val_acc": "0.971500",
+        "test_loss": "0.086291",
+        "test_acc": "0.972000",
+        "parameter_count": "329546",
+        "elapsed_seconds": "82.47",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed123.csv"
+      },
+      {
+        "name": "TCN-WideK5",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "5",
+        "best_val_loss": "0.068131",
+        "best_val_acc": "0.979500",
+        "test_loss": "0.061507",
+        "test_acc": "0.980200",
+        "parameter_count": "329546",
+        "elapsed_seconds": "74.94",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed42.csv"
+      },
+      {
+        "name": "TCN-WideK5",
+        "family": "tcn",
+        "epochs": "6",
+        "best_epoch": "6",
+        "best_val_loss": "0.060160",
+        "best_val_acc": "0.980500",
+        "test_loss": "0.063378",
+        "test_acc": "0.981400",
+        "parameter_count": "329546",
+        "elapsed_seconds": "85.26",
+        "source_file": "artifacts/multiseed/hypothesis1_selected/seed777.csv"
+      }
+    ]
+  }
+}
