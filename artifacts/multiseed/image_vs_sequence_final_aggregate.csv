@@ -1,0 +1,4 @@
+name,runs,mean_val_acc,std_val_acc,mean_test_acc,std_test_acc,mean_val_loss,mean_test_loss,parameter_count,epochs
+CNN-Deep,3,0.991317,0.000397,0.992900,0.001131,0.027567,0.021145,127306,10
+TCN-BiGRU,3,0.990117,0.000592,0.991867,0.000492,0.033292,0.028901,303691,10
+TCN-MaxAvg,3,0.989867,0.000487,0.991333,0.000249,0.033489,0.028176,204362,10

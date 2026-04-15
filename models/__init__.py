@@ -7,6 +7,8 @@ from .BiGRU import BiGRUModel
 from .Transformer import TransformerModel
 from .experiment_models import (
     DualTCNClassifier,
+    ImageCNNClassifier,
+    ImageMLPClassifier,
     RecurrentClassifier,
     TCNBiGRUClassifier,
     TCNClassifier,
@@ -26,4 +28,6 @@ __all__ = [
     "TCNClassifier",
     "DualTCNClassifier",
     "TCNBiGRUClassifier",
+    "ImageMLPClassifier",
+    "ImageCNNClassifier",
 ]

@@ -28,7 +28,7 @@ from models import (
     RNNModel,
     TransformerModel,
 )
-from models.experiment_models import RecurrentClassifier, TCNClassifier, TransformerClassifier
+from models.experiment_models import ImageCNNClassifier, ImageMLPClassifier, RecurrentClassifier, TCNClassifier, TransformerClassifier
 from models.experiment_models import DualTCNClassifier, TCNBiGRUClassifier
 
 
@@ -104,6 +104,29 @@ HYPOTHESIS2_FINALISTS = [
     ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=10, dropout=0.1, pooling_mode="maxavg"),
     ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=10, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
     ExperimentSpec(name="TCN-BiGRU-WideK5", family="tcn_bigru", epochs=10, conv_channels=(64, 128), kernel_size=5, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+]
+
+IMAGE_VS_SEQUENCE_SPECS = [
+    ExperimentSpec(name="MLP", family="image_mlp", epochs=6, channels=(256, 128), dropout=0.1),
+    ExperimentSpec(name="SmallCNN", family="image_cnn", epochs=6, channels=(32, 64), hidden_size=64, pooling="avg", dropout=0.1),
+    ExperimentSpec(name="CNN-Comparable", family="image_cnn", epochs=6, channels=(32, 64), hidden_size=128, pooling="flatten", dropout=0.1),
+    ExperimentSpec(name="CNN-Deep", family="image_cnn", epochs=6, channels=(32, 64, 128), hidden_size=128, pooling="maxavg", dropout=0.1),
+    ExperimentSpec(name="TransformerMean", family="baseline_transformer", epochs=6),
+    ExperimentSpec(name="BiGRU-2Layer-Attn", family="recurrent", epochs=6, hidden_size=128, num_layers=2, bidirectional=True, pooling="attention", dropout=0.1),
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=6, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=6, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+]
+
+IMAGE_VS_SEQUENCE_FINALISTS = [
+    ExperimentSpec(name="SmallCNN", family="image_cnn", epochs=10, channels=(32, 64), hidden_size=64, pooling="avg", dropout=0.1),
+    ExperimentSpec(name="CNN-Comparable", family="image_cnn", epochs=10, channels=(32, 64), hidden_size=128, pooling="flatten", dropout=0.1),
+    ExperimentSpec(name="CNN-Deep", family="image_cnn", epochs=10, channels=(32, 64, 128), hidden_size=128, pooling="maxavg", dropout=0.1),
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=10, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=10, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+]
+
+IMAGE_CNN_TOP_SPECS = [
+    ExperimentSpec(name="CNN-Deep", family="image_cnn", epochs=10, channels=(32, 64, 128), hidden_size=128, pooling="maxavg", dropout=0.1),
 ]
 
 
@@ -333,6 +356,18 @@ def build_model(spec: ExperimentSpec) -> nn.Module:
             transpose_input=spec.transpose_input,
             pooling=spec.pooling or "attention",
         )
+    if spec.family == "image_mlp":
+        return ImageMLPClassifier(
+            hidden_sizes=spec.channels or (256, 128),
+            dropout=spec.dropout,
+        )
+    if spec.family == "image_cnn":
+        return ImageCNNClassifier(
+            channels=spec.channels or (32, 64),
+            dropout=spec.dropout,
+            hidden_size=spec.hidden_size or 128,
+            pooling=spec.pooling or "flatten",
+        )
 
     raise ValueError(f"Unsupported family: {spec.family}")
 
@@ -350,6 +385,12 @@ def resolve_suite(name: str) -> list[ExperimentSpec]:
         return HYPOTHESIS2_SPECS
     if name == "hypothesis2_final":
         return HYPOTHESIS2_FINALISTS
+    if name == "image_vs_sequence":
+        return IMAGE_VS_SEQUENCE_SPECS
+    if name == "image_vs_sequence_final":
+        return IMAGE_VS_SEQUENCE_FINALISTS
+    if name == "image_cnn_top":
+        return IMAGE_CNN_TOP_SPECS
     if name == "all":
         return BASELINE_SPECS + EXTENDED_SPECS + FINALISTS
     raise ValueError(f"Unknown suite: {name}")
@@ -388,7 +429,22 @@ def save_results(results: list[dict], output_dir: Path, suite: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--suite", choices=["baseline", "extended", "finalists", "hypothesis1", "hypothesis2", "hypothesis2_final", "all"], default="baseline")
+    parser.add_argument(
+        "--suite",
+        choices=[
+            "baseline",
+            "extended",
+            "finalists",
+            "hypothesis1",
+            "hypothesis2",
+            "hypothesis2_final",
+            "image_vs_sequence",
+            "image_vs_sequence_final",
+            "image_cnn_top",
+            "all",
+        ],
+        default="baseline",
+    )
     parser.add_argument("--device", choices=["auto", "cpu", "cuda", "mps"], default="auto")
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--seed", type=int, default=42)
