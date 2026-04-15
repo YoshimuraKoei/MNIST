@@ -16,7 +16,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader, Subset, random_split
+from torch.utils.data import DataLoader, Dataset, Subset, random_split
 from torchvision import datasets, transforms
 
 from models import (
@@ -129,6 +129,13 @@ IMAGE_CNN_TOP_SPECS = [
     ExperimentSpec(name="CNN-Deep", family="image_cnn", epochs=10, channels=(32, 64, 128), hidden_size=128, pooling="maxavg", dropout=0.1),
 ]
 
+INPUT_CORRUPTION_SPECS = [
+    ExperimentSpec(name="MLP", family="image_mlp", epochs=6, channels=(256, 128), dropout=0.1),
+    ExperimentSpec(name="CNN-Deep", family="image_cnn", epochs=6, channels=(32, 64, 128), hidden_size=128, pooling="maxavg", dropout=0.1),
+    ExperimentSpec(name="TCN-MaxAvg", family="tcn", epochs=6, dropout=0.1, pooling_mode="maxavg"),
+    ExperimentSpec(name="TCN-BiGRU", family="tcn_bigru", epochs=6, conv_channels=(64, 128), kernel_size=3, recurrent_hidden=128, recurrent_layers=1, dropout=0.1),
+]
+
 
 def set_seed(seed: int) -> None:
     random.seed(seed)
@@ -152,7 +159,44 @@ def get_device(requested: str) -> torch.device:
     return torch.device("cpu")
 
 
-def build_dataloaders(batch_size: int, seed: int, train_limit: int | None = None, val_limit: int | None = None) -> dict[str, DataLoader]:
+class CorruptedMNISTDataset(Dataset):
+    def __init__(self, dataset: Dataset, corruption: str, seed: int):
+        self.dataset = dataset
+        self.corruption = corruption
+        generator = torch.Generator().manual_seed(seed)
+        self.row_perm = torch.randperm(28, generator=generator)
+        self.col_perm = torch.randperm(28, generator=generator)
+        self.pixel_perm = torch.randperm(28 * 28, generator=generator)
+
+    def __len__(self) -> int:
+        return len(self.dataset)
+
+    def __getitem__(self, index: int):
+        image, label = self.dataset[index]
+        if self.corruption == "none":
+            return image, label
+        if self.corruption == "row_shuffle":
+            return image[:, self.row_perm, :], label
+        if self.corruption == "column_shuffle":
+            return image[:, :, self.col_perm], label
+        if self.corruption == "pixel_shuffle":
+            return image.view(1, -1)[:, self.pixel_perm].view_as(image), label
+        raise ValueError(f"Unsupported corruption: {self.corruption}")
+
+
+def apply_corruption(dataset: Dataset, corruption: str, seed: int) -> Dataset:
+    if corruption == "none":
+        return dataset
+    return CorruptedMNISTDataset(dataset, corruption=corruption, seed=seed)
+
+
+def build_dataloaders(
+    batch_size: int,
+    seed: int,
+    train_limit: int | None = None,
+    val_limit: int | None = None,
+    corruption: str = "none",
+) -> dict[str, DataLoader]:
     transform = transforms.Compose(
         [
             transforms.ToTensor(),
@@ -173,6 +217,9 @@ def build_dataloaders(batch_size: int, seed: int, train_limit: int | None = None
         val_subset = Subset(val_subset, list(range(min(val_limit, len(val_subset)))))
 
     test_dataset = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
+    train_subset = apply_corruption(train_subset, corruption=corruption, seed=seed)
+    val_subset = apply_corruption(val_subset, corruption=corruption, seed=seed)
+    test_dataset = apply_corruption(test_dataset, corruption=corruption, seed=seed)
 
     return {
         "train": DataLoader(train_subset, batch_size=batch_size, shuffle=True),
@@ -210,7 +257,14 @@ def evaluate(model: nn.Module, dataloader: DataLoader, criterion: nn.Module, dev
     return total_loss / total_examples, total_correct / total_examples
 
 
-def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader], device: torch.device, seed: int, epochs_override: int | None = None) -> dict:
+def train_one_experiment(
+    spec: ExperimentSpec,
+    dataloaders: dict[str, DataLoader],
+    device: torch.device,
+    seed: int,
+    epochs_override: int | None = None,
+    corruption: str = "none",
+) -> dict:
     set_seed(seed)
     model = build_model(spec).to(device)
     optimizer = optim.Adam(model.parameters(), lr=spec.learning_rate)
@@ -285,6 +339,7 @@ def train_one_experiment(spec: ExperimentSpec, dataloaders: dict[str, DataLoader
         "test_acc": test_acc,
         "parameter_count": count_parameters(model),
         "elapsed_seconds": elapsed_seconds,
+        "corruption": corruption,
         "spec": asdict(spec),
         "epoch_logs": epoch_logs,
     }
@@ -391,6 +446,8 @@ def resolve_suite(name: str) -> list[ExperimentSpec]:
         return IMAGE_VS_SEQUENCE_FINALISTS
     if name == "image_cnn_top":
         return IMAGE_CNN_TOP_SPECS
+    if name == "input_corruption":
+        return INPUT_CORRUPTION_SPECS
     if name == "all":
         return BASELINE_SPECS + EXTENDED_SPECS + FINALISTS
     raise ValueError(f"Unknown suite: {name}")
@@ -418,6 +475,7 @@ def save_results(results: list[dict], output_dir: Path, suite: str) -> None:
                 "test_acc": f"{item['test_acc']:.6f}",
                 "parameter_count": item["parameter_count"],
                 "elapsed_seconds": f"{item['elapsed_seconds']:.2f}",
+                "corruption": item.get("corruption", "none"),
             }
         )
 
@@ -441,6 +499,7 @@ def main() -> None:
             "image_vs_sequence",
             "image_vs_sequence_final",
             "image_cnn_top",
+            "input_corruption",
             "all",
         ],
         default="baseline",
@@ -451,6 +510,7 @@ def main() -> None:
     parser.add_argument("--train-limit", type=int, default=None)
     parser.add_argument("--val-limit", type=int, default=None)
     parser.add_argument("--epochs-override", type=int, default=None)
+    parser.add_argument("--corruption", choices=["none", "row_shuffle", "column_shuffle", "pixel_shuffle"], default="none")
     parser.add_argument("--output-dir", type=Path, default=Path("artifacts/experiments"))
     args = parser.parse_args()
 
@@ -458,6 +518,7 @@ def main() -> None:
     print(f"Using device: {device}")
     print(f"Suite: {args.suite}")
     print(f"Seed: {args.seed}")
+    print(f"Corruption: {args.corruption}")
     if args.train_limit or args.val_limit:
         print(f"Subset limits: train={args.train_limit} val={args.val_limit}")
     if args.epochs_override is not None:
@@ -468,6 +529,7 @@ def main() -> None:
         seed=args.seed,
         train_limit=args.train_limit,
         val_limit=args.val_limit,
+        corruption=args.corruption,
     )
     specs = resolve_suite(args.suite)
 
@@ -475,9 +537,9 @@ def main() -> None:
     for index, spec in enumerate(specs, start=1):
         print(f"\n=== Experiment {index}/{len(specs)}: {spec.name} ===")
         if args.epochs_override is not None:
-            result = train_one_experiment(spec, dataloaders, device, args.seed, epochs_override=args.epochs_override)
+            result = train_one_experiment(spec, dataloaders, device, args.seed, epochs_override=args.epochs_override, corruption=args.corruption)
         else:
-            result = train_one_experiment(spec, dataloaders, device, args.seed)
+            result = train_one_experiment(spec, dataloaders, device, args.seed, corruption=args.corruption)
         results.append(result)
         save_results(results, args.output_dir, args.suite)
 

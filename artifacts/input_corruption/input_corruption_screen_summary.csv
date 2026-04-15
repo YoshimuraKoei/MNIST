@@ -1,0 +1,17 @@
+corruption,name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds
+none,MLP,image_mlp,6,6,0.205749,0.936750,0.181134,0.943400,235146,20.86
+none,CNN-Deep,image_cnn,6,5,0.060984,0.981250,0.045692,0.986100,127306,155.17
+none,TCN-MaxAvg,tcn,6,4,0.058125,0.982750,0.056488,0.982400,204362,313.90
+none,TCN-BiGRU,tcn_bigru,6,6,0.063836,0.979250,0.054516,0.982800,303691,313.74
+row_shuffle,MLP,image_mlp,6,6,0.212237,0.936000,0.183405,0.943800,235146,18.18
+row_shuffle,CNN-Deep,image_cnn,6,5,0.122869,0.963500,0.103640,0.968400,127306,173.06
+row_shuffle,TCN-MaxAvg,tcn,6,5,0.119750,0.962500,0.110877,0.965100,204362,323.86
+row_shuffle,TCN-BiGRU,tcn_bigru,6,6,0.152228,0.952750,0.143352,0.956900,303691,342.43
+column_shuffle,MLP,image_mlp,6,6,0.213411,0.936000,0.182066,0.945100,235146,23.16
+column_shuffle,CNN-Deep,image_cnn,6,6,0.096438,0.970000,0.084285,0.973700,127306,183.16
+column_shuffle,TCN-MaxAvg,tcn,6,6,0.053506,0.983250,0.047355,0.985100,204362,338.97
+column_shuffle,TCN-BiGRU,tcn_bigru,6,6,0.059582,0.978750,0.059234,0.980800,303691,318.68
+pixel_shuffle,MLP,image_mlp,6,6,0.212787,0.933250,0.180169,0.943600,235146,23.63
+pixel_shuffle,CNN-Deep,image_cnn,6,6,0.210082,0.938250,0.184817,0.942900,127306,177.82
+pixel_shuffle,TCN-MaxAvg,tcn,6,6,0.182422,0.946000,0.149645,0.953600,204362,330.30
+pixel_shuffle,TCN-BiGRU,tcn_bigru,6,6,0.244060,0.930750,0.223761,0.933200,303691,330.01

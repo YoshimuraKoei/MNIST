@@ -1,0 +1,5 @@
+name,family,epochs,best_epoch,best_val_loss,best_val_acc,test_loss,test_acc,parameter_count,elapsed_seconds,corruption
+MLP,image_mlp,6,6,0.212237,0.936000,0.183405,0.943800,235146,18.18,row_shuffle
+CNN-Deep,image_cnn,6,5,0.122869,0.963500,0.103640,0.968400,127306,173.06,row_shuffle
+TCN-MaxAvg,tcn,6,5,0.119750,0.962500,0.110877,0.965100,204362,323.86,row_shuffle
+TCN-BiGRU,tcn_bigru,6,6,0.152228,0.952750,0.143352,0.956900,303691,342.43,row_shuffle
