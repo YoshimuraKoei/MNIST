@@ -1,0 +1,1386 @@
+[
+  {
+    "name": "MLP",
+    "family": "image_mlp",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.20574916863441467,
+    "best_val_acc": 0.93675,
+    "test_loss": 0.1811344056069851,
+    "test_acc": 0.9434,
+    "parameter_count": 235146,
+    "elapsed_seconds": 20.860198541078717,
+    "corruption": "none",
+    "spec": {
+      "name": "MLP",
+      "family": "image_mlp",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        256,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 3.359101084060967,
+        "train_loss": 0.9097507463296255,
+        "train_acc": 0.7316666666666667,
+        "val_loss": 0.42932331848144534,
+        "val_acc": 0.87375
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 3.43329762481153,
+        "train_loss": 0.3838011413415273,
+        "train_acc": 0.8819166666666667,
+        "val_loss": 0.33231414580345153,
+        "val_acc": 0.90425
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 3.041270792018622,
+        "train_loss": 0.30174842619895936,
+        "train_acc": 0.9105833333333333,
+        "val_loss": 0.285213593006134,
+        "val_acc": 0.91975
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 3.7433400000445545,
+        "train_loss": 0.23752190085252126,
+        "train_acc": 0.9290833333333334,
+        "val_loss": 0.25501324796676633,
+        "val_acc": 0.92475
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 2.524766582995653,
+        "train_loss": 0.20709284766515096,
+        "train_acc": 0.9360833333333334,
+        "val_loss": 0.22715020513534545,
+        "val_acc": 0.932
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 2.5462479169946164,
+        "train_loss": 0.17160732384522756,
+        "train_acc": 0.9468333333333333,
+        "val_loss": 0.20574916863441467,
+        "val_acc": 0.93675
+      }
+    ]
+  },
+  {
+    "name": "CNN-Deep",
+    "family": "image_cnn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.060983914971351624,
+    "best_val_acc": 0.98125,
+    "test_loss": 0.045691862364858386,
+    "test_acc": 0.9861,
+    "parameter_count": 127306,
+    "elapsed_seconds": 155.16711387503892,
+    "corruption": "none",
+    "spec": {
+      "name": "CNN-Deep",
+      "family": "image_cnn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": "maxavg",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 23.12828362500295,
+        "train_loss": 1.196599534591039,
+        "train_acc": 0.64325,
+        "val_loss": 0.33057012391090396,
+        "val_acc": 0.92475
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 27.963544041849673,
+        "train_loss": 0.25114292999108634,
+        "train_acc": 0.9343333333333333,
+        "val_loss": 0.12197289097309112,
+        "val_acc": 0.9685
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 24.73168845800683,
+        "train_loss": 0.13962628587086995,
+        "train_acc": 0.9614166666666667,
+        "val_loss": 0.08438711357116699,
+        "val_acc": 0.97475
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 26.900997708085924,
+        "train_loss": 0.10656002046664556,
+        "train_acc": 0.9695833333333334,
+        "val_loss": 0.06914983177185059,
+        "val_acc": 0.98025
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 23.284977334085852,
+        "train_loss": 0.08110244967540105,
+        "train_acc": 0.97675,
+        "val_loss": 0.060983914971351624,
+        "val_acc": 0.98125
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 21.001982332905754,
+        "train_loss": 0.06097142096360524,
+        "train_acc": 0.9823333333333333,
+        "val_loss": 0.0579972802400589,
+        "val_acc": 0.97975
+      }
+    ]
+  },
+  {
+    "name": "TCN-MaxAvg",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 4,
+    "best_val_loss": 0.05812470531463623,
+    "best_val_acc": 0.98275,
+    "test_loss": 0.05648757317885757,
+    "test_acc": 0.9824,
+    "parameter_count": 204362,
+    "elapsed_seconds": 313.90189987490885,
+    "corruption": "none",
+    "spec": {
+      "name": "TCN-MaxAvg",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 47.15965687506832,
+        "train_loss": 0.7011854326725007,
+        "train_acc": 0.8025833333333333,
+        "val_loss": 0.19391760110855102,
+        "val_acc": 0.9475
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 49.421102167107165,
+        "train_loss": 0.12143468691905339,
+        "train_acc": 0.96775,
+        "val_loss": 0.10394002747535705,
+        "val_acc": 0.96925
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 45.703599290922284,
+        "train_loss": 0.07303382196029028,
+        "train_acc": 0.9806666666666667,
+        "val_loss": 0.07162659299373626,
+        "val_acc": 0.979
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 42.97981483396143,
+        "train_loss": 0.04824346070488294,
+        "train_acc": 0.9870833333333333,
+        "val_loss": 0.05812470531463623,
+        "val_acc": 0.98275
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 47.076160500058904,
+        "train_loss": 0.034424195051193235,
+        "train_acc": 0.9919166666666667,
+        "val_loss": 0.060675299108028415,
+        "val_acc": 0.98275
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 51.60704462486319,
+        "train_loss": 0.024050902356704075,
+        "train_acc": 0.9945833333333334,
+        "val_loss": 0.05583140856027603,
+        "val_acc": 0.98275
+      }
+    ]
+  },
+  {
+    "name": "TCN-BiGRU",
+    "family": "tcn_bigru",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.06383567893505096,
+    "best_val_acc": 0.97925,
+    "test_loss": 0.054516247229278086,
+    "test_acc": 0.9828,
+    "parameter_count": 303691,
+    "elapsed_seconds": 313.74020795803517,
+    "corruption": "none",
+    "spec": {
+      "name": "TCN-BiGRU",
+      "family": "tcn_bigru",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": 3,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": [
+        64,
+        128
+      ],
+      "recurrent_hidden": 128,
+      "recurrent_layers": 1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 47.836626291973516,
+        "train_loss": 0.9548900292317073,
+        "train_acc": 0.7131666666666666,
+        "val_loss": 0.2861314377784729,
+        "val_acc": 0.91025
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 48.79755491693504,
+        "train_loss": 0.16265024540821713,
+        "train_acc": 0.9521666666666667,
+        "val_loss": 0.12173159575462342,
+        "val_acc": 0.96275
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 47.08855200000107,
+        "train_loss": 0.09278869916995366,
+        "train_acc": 0.9724166666666667,
+        "val_loss": 0.09470146191120148,
+        "val_acc": 0.97125
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 47.78225433290936,
+        "train_loss": 0.06407981875538826,
+        "train_acc": 0.9795,
+        "val_loss": 0.07469589340686798,
+        "val_acc": 0.977
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 44.85423391708173,
+        "train_loss": 0.04677178582549095,
+        "train_acc": 0.9859166666666667,
+        "val_loss": 0.08029297387599946,
+        "val_acc": 0.9755
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 47.95905450009741,
+        "train_loss": 0.03352804377675057,
+        "train_acc": 0.9905833333333334,
+        "val_loss": 0.06383567893505096,
+        "val_acc": 0.97925
+      }
+    ]
+  },
+  {
+    "name": "MLP",
+    "family": "image_mlp",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.2122370991706848,
+    "best_val_acc": 0.936,
+    "test_loss": 0.1834054901301861,
+    "test_acc": 0.9438,
+    "parameter_count": 235146,
+    "elapsed_seconds": 18.177138416096568,
+    "corruption": "row_shuffle",
+    "spec": {
+      "name": "MLP",
+      "family": "image_mlp",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        256,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 4.437067874940112,
+        "train_loss": 0.9011082421938579,
+        "train_acc": 0.7300833333333333,
+        "val_loss": 0.42510127925872804,
+        "val_acc": 0.87875
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 3.0325467500369996,
+        "train_loss": 0.3824509890874227,
+        "train_acc": 0.8821666666666667,
+        "val_loss": 0.3365146636962891,
+        "val_acc": 0.9035
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 2.634565707994625,
+        "train_loss": 0.2958424112002055,
+        "train_acc": 0.9135,
+        "val_loss": 0.28290981364250184,
+        "val_acc": 0.919
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 2.2660195000935346,
+        "train_loss": 0.2351025413274765,
+        "train_acc": 0.9289166666666666,
+        "val_loss": 0.2574722068309784,
+        "val_acc": 0.9255
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 2.087198292138055,
+        "train_loss": 0.21162727300326029,
+        "train_acc": 0.9335833333333333,
+        "val_loss": 0.23282908844947814,
+        "val_acc": 0.9265
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 2.1071096670348197,
+        "train_loss": 0.180031262755394,
+        "train_acc": 0.9455,
+        "val_loss": 0.2122370991706848,
+        "val_acc": 0.936
+      }
+    ]
+  },
+  {
+    "name": "CNN-Deep",
+    "family": "image_cnn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.12286871767044068,
+    "best_val_acc": 0.9635,
+    "test_loss": 0.10364020108655095,
+    "test_acc": 0.9684,
+    "parameter_count": 127306,
+    "elapsed_seconds": 173.06271916697733,
+    "corruption": "row_shuffle",
+    "spec": {
+      "name": "CNN-Deep",
+      "family": "image_cnn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": "maxavg",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 19.365204625064507,
+        "train_loss": 1.3901851808230081,
+        "train_acc": 0.55575,
+        "val_loss": 0.48237501430511476,
+        "val_acc": 0.8725
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 25.097040500026196,
+        "train_loss": 0.41236539403597516,
+        "train_acc": 0.8760833333333333,
+        "val_loss": 0.22246213579177856,
+        "val_acc": 0.9335
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 30.22569725010544,
+        "train_loss": 0.2398302971124649,
+        "train_acc": 0.93,
+        "val_loss": 0.1671358335018158,
+        "val_acc": 0.9485
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 29.136551125207916,
+        "train_loss": 0.18031016568342845,
+        "train_acc": 0.94625,
+        "val_loss": 0.14331870996952056,
+        "val_acc": 0.95425
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 28.504932624986395,
+        "train_loss": 0.1464761643409729,
+        "train_acc": 0.9550833333333333,
+        "val_loss": 0.12286871767044068,
+        "val_acc": 0.9635
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 27.201772667001933,
+        "train_loss": 0.11312388829390208,
+        "train_acc": 0.9635,
+        "val_loss": 0.11630124866962432,
+        "val_acc": 0.96325
+      }
+    ]
+  },
+  {
+    "name": "TCN-MaxAvg",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 5,
+    "best_val_loss": 0.1197497421503067,
+    "best_val_acc": 0.9625,
+    "test_loss": 0.11087730048298836,
+    "test_acc": 0.9651,
+    "parameter_count": 204362,
+    "elapsed_seconds": 323.85578762507066,
+    "corruption": "row_shuffle",
+    "spec": {
+      "name": "TCN-MaxAvg",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 54.47611604211852,
+        "train_loss": 0.9003941249847413,
+        "train_acc": 0.7344166666666667,
+        "val_loss": 0.32496000623703003,
+        "val_acc": 0.9045
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 47.26086279191077,
+        "train_loss": 0.22809492766857148,
+        "train_acc": 0.93675,
+        "val_loss": 0.19706010699272156,
+        "val_acc": 0.936
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 50.20535554201342,
+        "train_loss": 0.1451618890364965,
+        "train_acc": 0.9595,
+        "val_loss": 0.1624961543083191,
+        "val_acc": 0.94875
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 49.32209725002758,
+        "train_loss": 0.10527443327506383,
+        "train_acc": 0.9705,
+        "val_loss": 0.1413541865348816,
+        "val_acc": 0.95875
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 46.28338566701859,
+        "train_loss": 0.07274440768361091,
+        "train_acc": 0.9813333333333333,
+        "val_loss": 0.1197497421503067,
+        "val_acc": 0.9625
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 45.82774524996057,
+        "train_loss": 0.052817736198504765,
+        "train_acc": 0.9868333333333333,
+        "val_loss": 0.12255086660385132,
+        "val_acc": 0.95775
+      }
+    ]
+  },
+  {
+    "name": "TCN-BiGRU",
+    "family": "tcn_bigru",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.1522282567024231,
+    "best_val_acc": 0.95275,
+    "test_loss": 0.14335208944305777,
+    "test_acc": 0.9569,
+    "parameter_count": 303691,
+    "elapsed_seconds": 342.4307412500493,
+    "corruption": "row_shuffle",
+    "spec": {
+      "name": "TCN-BiGRU",
+      "family": "tcn_bigru",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": 3,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": [
+        64,
+        128
+      ],
+      "recurrent_hidden": 128,
+      "recurrent_layers": 1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 59.97868724982254,
+        "train_loss": 1.1776088972886403,
+        "train_acc": 0.6301666666666667,
+        "val_loss": 0.5230718894004822,
+        "val_acc": 0.827
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 48.65836149989627,
+        "train_loss": 0.3381834177176158,
+        "train_acc": 0.89325,
+        "val_loss": 0.32117489433288576,
+        "val_acc": 0.90625
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 57.48197116702795,
+        "train_loss": 0.21055878293514252,
+        "train_acc": 0.9360833333333334,
+        "val_loss": 0.23583320331573487,
+        "val_acc": 0.92575
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 45.97166291694157,
+        "train_loss": 0.1489571977853775,
+        "train_acc": 0.9555,
+        "val_loss": 0.17316868686676026,
+        "val_acc": 0.94625
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 55.717820917023346,
+        "train_loss": 0.11775504537423452,
+        "train_acc": 0.9641666666666666,
+        "val_loss": 0.16705038523674012,
+        "val_acc": 0.94825
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 50.27205525012687,
+        "train_loss": 0.09253901408116023,
+        "train_acc": 0.9715,
+        "val_loss": 0.1522282567024231,
+        "val_acc": 0.95275
+      }
+    ]
+  },
+  {
+    "name": "MLP",
+    "family": "image_mlp",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.21341076612472534,
+    "best_val_acc": 0.936,
+    "test_loss": 0.18206569550037385,
+    "test_acc": 0.9451,
+    "parameter_count": 235146,
+    "elapsed_seconds": 23.162930791033432,
+    "corruption": "column_shuffle",
+    "spec": {
+      "name": "MLP",
+      "family": "image_mlp",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        256,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 3.549579708138481,
+        "train_loss": 0.9086777195135752,
+        "train_acc": 0.7286666666666667,
+        "val_loss": 0.4281018943786621,
+        "val_acc": 0.879
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 3.1594692079816014,
+        "train_loss": 0.38124367157618205,
+        "train_acc": 0.8834166666666666,
+        "val_loss": 0.33037570023536683,
+        "val_acc": 0.905
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 3.419613875215873,
+        "train_loss": 0.2888135724862417,
+        "train_acc": 0.9130833333333334,
+        "val_loss": 0.2725594415664673,
+        "val_acc": 0.92025
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 2.999783125007525,
+        "train_loss": 0.23013425008455912,
+        "train_acc": 0.9299166666666666,
+        "val_loss": 0.24336047315597534,
+        "val_acc": 0.92625
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 3.28746445896104,
+        "train_loss": 0.20274441409111024,
+        "train_acc": 0.9379166666666666,
+        "val_loss": 0.2253559947013855,
+        "val_acc": 0.933
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 4.321472459007055,
+        "train_loss": 0.17351771092414855,
+        "train_acc": 0.946,
+        "val_loss": 0.21341076612472534,
+        "val_acc": 0.936
+      }
+    ]
+  },
+  {
+    "name": "CNN-Deep",
+    "family": "image_cnn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.09643771862983704,
+    "best_val_acc": 0.97,
+    "test_loss": 0.08428473883718252,
+    "test_acc": 0.9737,
+    "parameter_count": 127306,
+    "elapsed_seconds": 183.15578237501904,
+    "corruption": "column_shuffle",
+    "spec": {
+      "name": "CNN-Deep",
+      "family": "image_cnn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": "maxavg",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 29.11828920803964,
+        "train_loss": 1.3025780908266704,
+        "train_acc": 0.57025,
+        "val_loss": 0.6009411177635193,
+        "val_acc": 0.83175
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 29.17060137493536,
+        "train_loss": 0.43156960713863374,
+        "train_acc": 0.8658333333333333,
+        "val_loss": 0.27924978971481323,
+        "val_acc": 0.91475
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 30.33413533307612,
+        "train_loss": 0.2628945486942927,
+        "train_acc": 0.92125,
+        "val_loss": 0.20131363821029663,
+        "val_acc": 0.93375
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 29.817274374887347,
+        "train_loss": 0.1906177769502004,
+        "train_acc": 0.9421666666666667,
+        "val_loss": 0.1415793021917343,
+        "val_acc": 0.95425
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 25.116795875132084,
+        "train_loss": 0.14893738687038421,
+        "train_acc": 0.95525,
+        "val_loss": 0.11682480537891388,
+        "val_acc": 0.9625
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 30.063867167104036,
+        "train_loss": 0.1178951535820961,
+        "train_acc": 0.9635833333333333,
+        "val_loss": 0.09643771862983704,
+        "val_acc": 0.97
+      }
+    ]
+  },
+  {
+    "name": "TCN-MaxAvg",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.053505748212337494,
+    "best_val_acc": 0.98325,
+    "test_loss": 0.047355169066786766,
+    "test_acc": 0.9851,
+    "parameter_count": 204362,
+    "elapsed_seconds": 338.96910324995406,
+    "corruption": "column_shuffle",
+    "spec": {
+      "name": "TCN-MaxAvg",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 50.252011500066146,
+        "train_loss": 0.728144947886467,
+        "train_acc": 0.7970833333333334,
+        "val_loss": 0.20358050870895386,
+        "val_acc": 0.94775
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 51.53728779195808,
+        "train_loss": 0.12490059810876847,
+        "train_acc": 0.96775,
+        "val_loss": 0.10938611793518066,
+        "val_acc": 0.968
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 44.904686416033655,
+        "train_loss": 0.0737050582965215,
+        "train_acc": 0.98125,
+        "val_loss": 0.07579872345924378,
+        "val_acc": 0.97625
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 56.713690042030066,
+        "train_loss": 0.05000747236609459,
+        "train_acc": 0.9864166666666667,
+        "val_loss": 0.060578899800777436,
+        "val_acc": 0.98075
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 44.88802362489514,
+        "train_loss": 0.03456710058947404,
+        "train_acc": 0.99175,
+        "val_loss": 0.0593880552649498,
+        "val_acc": 0.981
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 60.73275483306497,
+        "train_loss": 0.02504125681022803,
+        "train_acc": 0.9939166666666667,
+        "val_loss": 0.053505748212337494,
+        "val_acc": 0.98325
+      }
+    ]
+  },
+  {
+    "name": "TCN-BiGRU",
+    "family": "tcn_bigru",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.059581511318683625,
+    "best_val_acc": 0.97875,
+    "test_loss": 0.05923424882441759,
+    "test_acc": 0.9808,
+    "parameter_count": 303691,
+    "elapsed_seconds": 318.6793816250283,
+    "corruption": "column_shuffle",
+    "spec": {
+      "name": "TCN-BiGRU",
+      "family": "tcn_bigru",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": 3,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": [
+        64,
+        128
+      ],
+      "recurrent_hidden": 128,
+      "recurrent_layers": 1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 48.42878087493591,
+        "train_loss": 0.972540572365125,
+        "train_acc": 0.7085833333333333,
+        "val_loss": 0.34363120412826537,
+        "val_acc": 0.8905
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 50.001386124873534,
+        "train_loss": 0.16278200630346934,
+        "train_acc": 0.95225,
+        "val_loss": 0.12920033431053163,
+        "val_acc": 0.96375
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 50.831418209010735,
+        "train_loss": 0.10253592403729757,
+        "train_acc": 0.9693333333333334,
+        "val_loss": 0.0993114082813263,
+        "val_acc": 0.9715
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 47.15893837506883,
+        "train_loss": 0.06787950078646342,
+        "train_acc": 0.9799166666666667,
+        "val_loss": 0.08131042850017547,
+        "val_acc": 0.97725
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 44.11627387511544,
+        "train_loss": 0.05080659434199333,
+        "train_acc": 0.9849166666666667,
+        "val_loss": 0.07396806836128235,
+        "val_acc": 0.97725
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 52.67616262496449,
+        "train_loss": 0.03707815115650495,
+        "train_acc": 0.9890833333333333,
+        "val_loss": 0.059581511318683625,
+        "val_acc": 0.97875
+      }
+    ]
+  },
+  {
+    "name": "MLP",
+    "family": "image_mlp",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.2127874071598053,
+    "best_val_acc": 0.93325,
+    "test_loss": 0.18016946408152582,
+    "test_acc": 0.9436,
+    "parameter_count": 235146,
+    "elapsed_seconds": 23.627942540915683,
+    "corruption": "pixel_shuffle",
+    "spec": {
+      "name": "MLP",
+      "family": "image_mlp",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        256,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 3.3355416669510305,
+        "train_loss": 0.9198474038441976,
+        "train_acc": 0.7218333333333333,
+        "val_loss": 0.4464761552810669,
+        "val_acc": 0.8675
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 3.5131176670547575,
+        "train_loss": 0.3876148510773977,
+        "train_acc": 0.8815833333333334,
+        "val_loss": 0.3432657985687256,
+        "val_acc": 0.89975
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 3.5622357921674848,
+        "train_loss": 0.2995704994996389,
+        "train_acc": 0.9115,
+        "val_loss": 0.289466224193573,
+        "val_acc": 0.916
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 3.411899333819747,
+        "train_loss": 0.23937029127279918,
+        "train_acc": 0.9281666666666667,
+        "val_loss": 0.26935790371894835,
+        "val_acc": 0.92425
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 3.963727958034724,
+        "train_loss": 0.2115841228167216,
+        "train_acc": 0.9354166666666667,
+        "val_loss": 0.2334622631072998,
+        "val_acc": 0.9305
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 3.222185250138864,
+        "train_loss": 0.18067432630062102,
+        "train_acc": 0.94275,
+        "val_loss": 0.2127874071598053,
+        "val_acc": 0.93325
+      }
+    ]
+  },
+  {
+    "name": "CNN-Deep",
+    "family": "image_cnn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.21008191561698913,
+    "best_val_acc": 0.93825,
+    "test_loss": 0.18481728042513132,
+    "test_acc": 0.9429,
+    "parameter_count": 127306,
+    "elapsed_seconds": 177.81582591612823,
+    "corruption": "pixel_shuffle",
+    "spec": {
+      "name": "CNN-Deep",
+      "family": "image_cnn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": 128,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": "maxavg",
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": null,
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 28.95744691696018,
+        "train_loss": 1.6901583199501038,
+        "train_acc": 0.42683333333333334,
+        "val_loss": 0.806466281414032,
+        "val_acc": 0.771
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 25.410978749860078,
+        "train_loss": 0.6190191152095794,
+        "train_acc": 0.80075,
+        "val_loss": 0.43345627999305725,
+        "val_acc": 0.87575
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 28.380981042049825,
+        "train_loss": 0.3893413174152374,
+        "train_acc": 0.8809166666666667,
+        "val_loss": 0.2851393086910248,
+        "val_acc": 0.9185
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 25.960944291902706,
+        "train_loss": 0.3005148895581563,
+        "train_acc": 0.9078333333333334,
+        "val_loss": 0.2648597664833069,
+        "val_acc": 0.9215
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 27.157305124914274,
+        "train_loss": 0.25233165589968365,
+        "train_acc": 0.9230833333333334,
+        "val_loss": 0.2325040123462677,
+        "val_acc": 0.93425
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 30.189777583116665,
+        "train_loss": 0.2072992428938548,
+        "train_acc": 0.9356666666666666,
+        "val_loss": 0.21008191561698913,
+        "val_acc": 0.93825
+      }
+    ]
+  },
+  {
+    "name": "TCN-MaxAvg",
+    "family": "tcn",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.1824215953350067,
+    "best_val_acc": 0.946,
+    "test_loss": 0.1496454101368785,
+    "test_acc": 0.9536,
+    "parameter_count": 204362,
+    "elapsed_seconds": 330.30024929204956,
+    "corruption": "pixel_shuffle",
+    "spec": {
+      "name": "TCN-MaxAvg",
+      "family": "tcn",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": null,
+      "pooling_mode": "maxavg",
+      "channels": null,
+      "conv_channels": null,
+      "recurrent_hidden": null,
+      "recurrent_layers": null
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 52.093877458013594,
+        "train_loss": 0.853878910779953,
+        "train_acc": 0.7441666666666666,
+        "val_loss": 0.38200102043151857,
+        "val_acc": 0.88125
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 49.21205262513831,
+        "train_loss": 0.26489432966709137,
+        "train_acc": 0.92225,
+        "val_loss": 0.24433941125869751,
+        "val_acc": 0.926
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 50.92705904203467,
+        "train_loss": 0.17613558840751647,
+        "train_acc": 0.9505833333333333,
+        "val_loss": 0.22060567593574523,
+        "val_acc": 0.931
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 47.27531487494707,
+        "train_loss": 0.12657313561439515,
+        "train_acc": 0.9643333333333334,
+        "val_loss": 0.1861877944469452,
+        "val_acc": 0.942
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 47.8821943749208,
+        "train_loss": 0.09082076674699784,
+        "train_acc": 0.97475,
+        "val_loss": 0.1789144878387451,
+        "val_acc": 0.94575
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 49.76771733420901,
+        "train_loss": 0.06635013576348622,
+        "train_acc": 0.9824166666666667,
+        "val_loss": 0.1824215953350067,
+        "val_acc": 0.946
+      }
+    ]
+  },
+  {
+    "name": "TCN-BiGRU",
+    "family": "tcn_bigru",
+    "epochs": 6,
+    "best_epoch": 6,
+    "best_val_loss": 0.24406015729904174,
+    "best_val_acc": 0.93075,
+    "test_loss": 0.2237605139657855,
+    "test_acc": 0.9332,
+    "parameter_count": 303691,
+    "elapsed_seconds": 330.0054450840689,
+    "corruption": "pixel_shuffle",
+    "spec": {
+      "name": "TCN-BiGRU",
+      "family": "tcn_bigru",
+      "epochs": 6,
+      "learning_rate": 0.001,
+      "hidden_size": null,
+      "num_layers": null,
+      "bidirectional": null,
+      "pooling": null,
+      "transpose_input": false,
+      "d_model": null,
+      "num_heads": null,
+      "ff_dim": null,
+      "dropout": 0.1,
+      "kernel_size": 3,
+      "pooling_mode": null,
+      "channels": null,
+      "conv_channels": [
+        64,
+        128
+      ],
+      "recurrent_hidden": 128,
+      "recurrent_layers": 1
+    },
+    "epoch_logs": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 47.11866983305663,
+        "train_loss": 1.0996111652056375,
+        "train_acc": 0.6465,
+        "val_loss": 0.5427259573936463,
+        "val_acc": 0.82275
+      },
+      {
+        "epoch": 2,
+        "epoch_seconds": 49.06108291703276,
+        "train_loss": 0.34033015791575116,
+        "train_acc": 0.89075,
+        "val_loss": 0.3461350135803223,
+        "val_acc": 0.893
+      },
+      {
+        "epoch": 3,
+        "epoch_seconds": 46.37928208312951,
+        "train_loss": 0.2297034315665563,
+        "train_acc": 0.9294166666666667,
+        "val_loss": 0.28919782614707945,
+        "val_acc": 0.91225
+      },
+      {
+        "epoch": 4,
+        "epoch_seconds": 53.82699495786801,
+        "train_loss": 0.16041118578116098,
+        "train_acc": 0.9494166666666667,
+        "val_loss": 0.2468675208091736,
+        "val_acc": 0.9275
+      },
+      {
+        "epoch": 5,
+        "epoch_seconds": 51.077766915783286,
+        "train_loss": 0.13438366230328877,
+        "train_acc": 0.9574166666666667,
+        "val_loss": 0.24165743470191955,
+        "val_acc": 0.928
+      },
+      {
+        "epoch": 6,
+        "epoch_seconds": 56.357263166923076,
+        "train_loss": 0.10586645176013311,
+        "train_acc": 0.9665,
+        "val_loss": 0.24406015729904174,
+        "val_acc": 0.93075
+      }
+    ]
+  }
+]

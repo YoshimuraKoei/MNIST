@@ -409,3 +409,65 @@ full-data seed `42` では `CNN-Deep` が validation/test ともに最良だっ�
 - `TCN` の強さは temporal modeling というより、局所畳み込みの帰納バイアスに強く依存している。
 - MNIST では、その帰納バイアスを 2D に拡張した CNN がさらに強い。
 - ただし `TCN` 系も大きく負けているわけではなく、row-wise sequence representation でも MNIST の構造をかなり拾えている。
+
+## Round 4: Input Corruption
+
+前回までで、`TCN` の強さは temporal modeling というより local convolution の帰納バイアスに由来する可能性が高いと考えた。
+
+今回はその解釈を直接検証するため、入力構造を固定置換で壊した。
+
+### 仮説 4
+
+`TCN` の性能は、純粋な時系列理解ではなく、行方向の局所構造と畳み込みの帰納バイアスに依存している。
+
+### 実験設定
+
+- train subset: `12000`
+- val subset: `4000`
+- epochs: `6`
+- seed: `42`
+- corruption: `none`, `row_shuffle`, `column_shuffle`, `pixel_shuffle`
+- models: `MLP`, `CNN-Deep`, `TCN-MaxAvg`, `TCN-BiGRU`
+
+shuffle は全サンプル共通の固定置換。情報量自体ではなく、空間的な近傍構造を壊している。
+
+### 結果
+
+| Corruption | Model | Best Val Acc | Test Acc | Test Drop vs None |
+| --- | --- | ---: | ---: | ---: |
+| none | MLP | 0.936750 | 0.943400 | 0.000000 |
+| none | CNN-Deep | 0.981250 | 0.986100 | 0.000000 |
+| none | TCN-MaxAvg | 0.982750 | 0.982400 | 0.000000 |
+| none | TCN-BiGRU | 0.979250 | 0.982800 | 0.000000 |
+| row_shuffle | MLP | 0.936000 | 0.943800 | -0.000400 |
+| row_shuffle | CNN-Deep | 0.963500 | 0.968400 | 0.017700 |
+| row_shuffle | TCN-MaxAvg | 0.962500 | 0.965100 | 0.017300 |
+| row_shuffle | TCN-BiGRU | 0.952750 | 0.956900 | 0.025900 |
+| column_shuffle | MLP | 0.936000 | 0.945100 | -0.001700 |
+| column_shuffle | CNN-Deep | 0.970000 | 0.973700 | 0.012400 |
+| column_shuffle | TCN-MaxAvg | 0.983250 | 0.985100 | -0.002700 |
+| column_shuffle | TCN-BiGRU | 0.978750 | 0.980800 | 0.002000 |
+| pixel_shuffle | MLP | 0.933250 | 0.943600 | -0.000200 |
+| pixel_shuffle | CNN-Deep | 0.938250 | 0.942900 | 0.043200 |
+| pixel_shuffle | TCN-MaxAvg | 0.946000 | 0.953600 | 0.028800 |
+| pixel_shuffle | TCN-BiGRU | 0.930750 | 0.933200 | 0.049600 |
+
+### 判定
+
+仮説 4 は概ね採択。
+
+理由:
+
+- `MLP` は固定置換にほぼ不変だった。
+- `CNN-Deep` は `pixel_shuffle` で MLP と同程度まで落ち、2D 局所構造への依存が明確だった。
+- `TCN-MaxAvg` は `row_shuffle` で落ちたため、行方向の順序に依存している。
+- 一方で `TCN-MaxAvg` は `column_shuffle` では落ちなかった。TCN では列が `Conv1d` の channel なので、列の隣接順序自体はほぼ使っていない。
+- `TCN-BiGRU` は破壊入力では `TCN-MaxAvg` より脆く、recurrent readout は clean な TCN 特徴に対して効いていた可能性が高い。
+
+### 更新された解釈
+
+`TCN` は画像を本当の時系列として理解していたというより、行方向に並べた画像構造を 1D convolution で拾っていた。
+
+特に重要なのは、`column_shuffle` で `TCN-MaxAvg` が落ちなかったこと。これは、TCN が列方向の局所性ではなく、行方向の temporal locality と channel mixing を使っていたことを示している。
+
+今回の結果は seed `42` の subset screen なので、完全な最終結論にするなら `row_shuffle` と `pixel_shuffle` に絞って full-data / multi-seed 追試を行う。

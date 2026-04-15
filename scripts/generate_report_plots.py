@@ -18,6 +18,7 @@ EXPERIMENTS_DIR = ARTIFACTS_DIR / "experiments"
 MULTISEED_DIR = ARTIFACTS_DIR / "multiseed"
 REPORT_RUNS_DIR = ARTIFACTS_DIR / "report_runs" / "hypothesis2_final"
 PLOTS_DIR = ARTIFACTS_DIR / "plots"
+INPUT_CORRUPTION_DIR = ARTIFACTS_DIR / "input_corruption"
 
 
 def load_results(path: Path) -> list[dict]:
@@ -203,6 +204,78 @@ def plot_accuracy_parameter_tradeoff(results: list[dict], title: str, output_nam
     plt.close()
 
 
+def plot_input_corruption_grouped_bar(rows: list[dict], metric: str, title: str, output_name: str) -> None:
+    corruptions = ["none", "row_shuffle", "column_shuffle", "pixel_shuffle"]
+    model_names = ["MLP", "CNN-Deep", "TCN-MaxAvg", "TCN-BiGRU"]
+    values_by_model = {
+        model_name: [float(next(row[metric] for row in rows if row["corruption"] == corruption and row["name"] == model_name)) for corruption in corruptions]
+        for model_name in model_names
+    }
+
+    x_axis = np.arange(len(corruptions))
+    width = 0.2
+    plt.figure(figsize=(11, 6))
+    for offset, model_name in enumerate(model_names):
+        plt.bar(x_axis + (offset - 1.5) * width, values_by_model[model_name], width, label=model_name)
+
+    plt.title(title)
+    plt.ylabel(metric)
+    plt.xticks(x_axis, corruptions, rotation=15, ha="right")
+    plt.ylim(min(min(values) for values in values_by_model.values()) - 0.02, 1.0)
+    plt.grid(True, axis="y", alpha=0.3)
+    plt.legend(loc="best")
+    plt.tight_layout()
+    plt.savefig(PLOTS_DIR / output_name, dpi=160)
+    plt.close()
+
+
+def plot_input_corruption_drop(rows: list[dict], title: str, output_name: str) -> None:
+    corruptions = ["row_shuffle", "column_shuffle", "pixel_shuffle"]
+    model_names = ["MLP", "CNN-Deep", "TCN-MaxAvg", "TCN-BiGRU"]
+    base = {row["name"]: float(row["test_acc"]) for row in rows if row["corruption"] == "none"}
+    drops_by_model = {
+        model_name: [
+            base[model_name] - float(next(row["test_acc"] for row in rows if row["corruption"] == corruption and row["name"] == model_name))
+            for corruption in corruptions
+        ]
+        for model_name in model_names
+    }
+
+    x_axis = np.arange(len(corruptions))
+    width = 0.2
+    plt.figure(figsize=(10, 6))
+    for offset, model_name in enumerate(model_names):
+        plt.bar(x_axis + (offset - 1.5) * width, drops_by_model[model_name], width, label=model_name)
+
+    plt.title(title)
+    plt.ylabel("Test Accuracy Drop vs None")
+    plt.xticks(x_axis, corruptions, rotation=15, ha="right")
+    plt.axhline(0.0, color="black", linewidth=1)
+    plt.grid(True, axis="y", alpha=0.3)
+    plt.legend(loc="best")
+    plt.tight_layout()
+    plt.savefig(PLOTS_DIR / output_name, dpi=160)
+    plt.close()
+
+
+def plot_input_corruption_val_curves(results: list[dict], title: str, output_name: str) -> None:
+    corruptions = ["none", "row_shuffle", "column_shuffle", "pixel_shuffle"]
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9), sharex=True, sharey=True)
+    for axis, corruption in zip(axes.flatten(), corruptions):
+        selected = [result for result in results if result["corruption"] == corruption]
+        for result in selected:
+            axis.plot(epoch_range(result), metric_curve(result, "val_acc"), marker="o", linewidth=2, label=result["name"])
+        axis.set_title(corruption)
+        axis.grid(True, alpha=0.3)
+        axis.set_xlabel("Epoch")
+        axis.set_ylabel("Validation Accuracy")
+    axes.flatten()[0].legend(loc="best", fontsize=8)
+    fig.suptitle(title)
+    fig.tight_layout()
+    fig.savefig(PLOTS_DIR / output_name, dpi=160)
+    plt.close(fig)
+
+
 def plot_top_baseline_diagnostics(results: list[dict], model_names: list[str], output_name: str) -> None:
     selected = [result for result in results if result["name"] in model_names]
     selected.sort(key=lambda result: model_names.index(result["name"]))
@@ -237,6 +310,8 @@ def main() -> None:
     hypothesis2_final = load_results(EXPERIMENTS_DIR / "hypothesis2_final_results.json")
     image_vs_sequence = load_results(EXPERIMENTS_DIR / "image_vs_sequence_results.json")
     image_vs_sequence_final = load_results(EXPERIMENTS_DIR / "image_vs_sequence_final_results.json")
+    input_corruption_rows = load_csv(INPUT_CORRUPTION_DIR / "input_corruption_screen_summary.csv")
+    input_corruption_results = load_results(INPUT_CORRUPTION_DIR / "input_corruption_screen_results.json")
     per_seed_finalists = load_report_run_results()
     per_seed_image_vs_sequence = load_image_vs_sequence_multiseed_results()
 
@@ -360,6 +435,22 @@ def main() -> None:
         image_vs_sequence_final,
         title="Image Models vs Sequence Models: Accuracy vs Parameter Count",
         output_name="image_vs_sequence_accuracy_params.png",
+    )
+    plot_input_corruption_grouped_bar(
+        input_corruption_rows,
+        metric="test_acc",
+        title="Input Corruption Screen: Test Accuracy by Model",
+        output_name="input_corruption_test_acc.png",
+    )
+    plot_input_corruption_drop(
+        input_corruption_rows,
+        title="Input Corruption Screen: Test Accuracy Drop vs Clean Input",
+        output_name="input_corruption_test_drop.png",
+    )
+    plot_input_corruption_val_curves(
+        input_corruption_results,
+        title="Input Corruption Screen: Validation Accuracy by Epoch",
+        output_name="input_corruption_val_curves.png",
     )
 
 
